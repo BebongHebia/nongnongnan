@@ -76,7 +76,7 @@
                     <a href="{{ url('/admin-dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard 1
+                            Dashboard
                         </p>
                     </a>
                 </li>

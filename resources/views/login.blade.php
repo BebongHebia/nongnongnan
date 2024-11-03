@@ -22,7 +22,7 @@
         <center>
             <img src="{{ asset('images/logo.png') }}" class="img-fluid img-circle">
         </center>
-      <a href="{{ url('/') }}" class="h5"><b>Barangay Nongnongnan Daily Transaction System</b></a>
+      <a href="{{ url('/') }}" class="h5"><b>Barangay Nongnongnan Daily Transaction System - Mao ni akong gi utro karun</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
