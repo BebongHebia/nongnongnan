@@ -82,10 +82,65 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('/admin-staff-kapitan') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Staff Kapitan
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/admin-staff-secretary') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Staff Secretary
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('/admin-users') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/admin-transactions') }}" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Transactions
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="{{ url('/admin-announcements') }}" class="nav-link">
+                        <i class="nav-icon fas fa-bullhorn"></i>
+                        <p>
+                            Announcements
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/admin-kap-calendar') }}" class="nav-link">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>
+                            Kap Calendar
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/admin-log') }}" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Logs History
                         </p>
                     </a>
                 </li>

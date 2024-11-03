@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Users</h1>
+                <h1 class="m-0">Staff Kapitan</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -18,24 +18,24 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#add_user_modal">
-                    <i class="fas fa-plus"></i> Add User
+                <button class="btn btn-primary" data-toggle="modal" data-target="#add_staff_kap_modal">
+                    <i class="fas fa-plus"></i> Add Staff Kapitan
                 </button>
 
-                <div class="modal fade" id="add_user_modal">
+                <div class="modal fade" id="add_staff_kap_modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Add User</h4>
+                                <h4 class="modal-title">Add Kapitan</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="add_user_form">
+                                <form id="add_staff_kap_form">
                                     @csrf
 
-                                    <input type="hidden" name="role" class="form-control" value="User">
+                                    <input type="hidden" name="role" class="form-control" value="Staff-Kapitan">
 
                                     <label>Complete Name</label>
                                     <input type="text" name="complete_name" class="form-control" placeholder="Enter Complete Name">
@@ -62,7 +62,7 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" onclick="add_user(event)" class="btn btn-primary">Submit</button>
+                                <button type="button" onclick="add_kap(event)" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -87,7 +87,6 @@
                                 <th>Birthdate</th>
                                 <th>Purok</th>
                                 <th>Phone</th>
-                                <th>Username</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </thead>
@@ -100,54 +99,53 @@
             </div>
         </div>
 
-
-
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
 
 <script>
-    display_users();
-    function display_users(){
+
+    display_kap();
+
+    function display_kap(){
         $.ajax({
             type: "GET",
-            url: `{{ url('/get-users') }}`,
+            url: `{{ url('/get-staff-kap') }}`,
             success: function (data) {
                 let rows = '';
 
-                $.each(data, function(index, users){
+                $.each(data, function(index, staff_kap){
                     rows += `
                         <tr>
-                            <td>${users.complete_name}</td>
-                            <td>${users.sex}</td>
-                            <td>${users.bday}</td>
-                            <td>${users.purok}</td>
-                            <td>${users.phone}</td>
-                            <td>${users.username}</td>
-                            <td>${users.status}</td>
+                            <td>${staff_kap.complete_name}</td>
+                            <td>${staff_kap.sex}</td>
+                            <td>${staff_kap.bday}</td>
+                            <td>${staff_kap.purok}</td>
+                            <td>${staff_kap.phone}</td>
+                            <td>${staff_kap.status}</td>
                             <td>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit_user_modal${users.id}">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit_staff_kap_modal${staff_kap.id}">
                                     <i class="fas fa-edit"></i>
                                 </button>
 
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete_user_modal${users.id}">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete_staff_kap_modal${staff_kap.id}">
                                     <i class="fas fa-trash"></i>
                                 </button>
 
-                                <div class="modal fade" id="delete_user_modal${users.id}">
+                                <div class="modal fade" id="delete_staff_kap_modal${staff_kap.id}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Delete User</h4>
+                                                <h4 class="modal-title">Delete Kapitan</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="delete_user_form${users.id}">
+                                                <form id="delete_staff_kap_form${staff_kap.id}">
                                                     @csrf
 
-                                                    <input type="hidden" name="user_id" value="${users.id}">
+                                                    <input type="hidden" name="user_id" value="${staff_kap.id}">
 
                                                    <h5 class="text-center">Are you sure you want to delete?</h5>
 
@@ -155,7 +153,7 @@
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" onclick="delete_user(event, ${users.id})" class="btn btn-danger">Confirm</button>
+                                                <button type="button" onclick="delete_kap(event, ${staff_kap.id})" class="btn btn-danger">Confirm</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
@@ -165,43 +163,43 @@
                                 <!-- /.modal -->
 
 
-                                <div class="modal fade" id="edit_user_modal${users.id}">
+                                <div class="modal fade" id="edit_staff_kap_modal${staff_kap.id}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Edit User</h4>
+                                                <h4 class="modal-title">Edit Kapitan</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="edit_user_form${users.id}">
+                                                <form id="edit_staff_kap_form${staff_kap.id}">
                                                     @csrf
 
-                                                    <input type="hidden" name="user_id" value="${users.id}">
+                                                    <input type="hidden" name="user_id" value="${staff_kap.id}">
 
                                                     <label>Complete Name</label>
-                                                    <input type="text" name="complete_name" value="${users.complete_name}" class="form-control">
+                                                    <input type="text" name="complete_name" value="${staff_kap.complete_name}" class="form-control">
 
                                                     <label>Sex</label>
                                                     <select class="form-select select2" name="sex">
-                                                        <option value="${users.sex}" selected>${users.sex}</option>
+                                                        <option value="${staff_kap.sex}" selected>${staff_kap.sex}</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                     </select>
 
                                                     <label>Date of birth</label>
-                                                    <input type="date" name="bday" value="${users.bday}" class="form-control">
+                                                    <input type="date" name="bday" value="${staff_kap.bday}" class="form-control">
 
                                                     <label>Purok - Address</label>
-                                                    <input type="text" name="purok" value="${users.purok}" class="form-control" placeholder="Enter Purok">
+                                                    <input type="text" name="purok" value="${staff_kap.purok}" class="form-control" placeholder="Enter Purok">
 
                                                     <label>Phone</label>
-                                                    <input type="text" name="phone" value="${users.phone}" class="form-control" placeholder="Enter Phone">
+                                                    <input type="text" name="phone" value="${staff_kap.phone}" class="form-control" placeholder="Enter Phone">
 
                                                     <label>Status</label>
                                                     <select class="form-select select2" name="status">
-                                                        <option value="${users.status}">${users.status}</option>
+                                                        <option value="${staff_kap.status}">${staff_kap.status}</option>
                                                         <option value="Active">Active</option>
                                                         <option value="Inactive">Inactive</option>
                                                     </select>
@@ -210,7 +208,7 @@
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" onclick="edit_user(event, ${users.id})" class="btn btn-primary">Save changes</button>
+                                                <button type="button" onclick="edit_kap(event, ${staff_kap.id})" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
@@ -233,19 +231,19 @@
         });
     }
 
-    function delete_user(event, user_id){
+    function delete_kap(event, user_id){
         event.preventDefault();
         $.ajax({
             type: "POST",
             url: `{{ url('/delete-user') }}`,
-            data: $('#delete_user_form' + user_id).serialize(),
+            data: $('#delete_staff_kap_form' + user_id).serialize(),
             success: function (data) {
-                $('#delete_user_form' + user_id)[0].reset();
-                $('#delete_user_modal' + user_id).modal('hide');
-                display_users();
+                $('#delete_staff_kap_form' + user_id)[0].reset();
+                $('#delete_staff_kap_modal' + user_id).modal('hide');
+                display_kap();
                 Swal.fire({
                     title: 'Deleted',
-                    text: 'User Deleted Successfully',
+                    text: 'Staff Kap Deleted Successfully',
                     icon: 'warning',
                 });
 
@@ -253,19 +251,20 @@
         });
     }
 
-    function edit_user(event, user_id){
+
+    function edit_kap(event, user_id){
         event.preventDefault();
         $.ajax({
             type: "POST",
             url: `{{ url('/edit-user') }}`,
-            data: $('#edit_user_form' + user_id).serialize(),
+            data: $('#edit_staff_kap_form' + user_id).serialize(),
             success: function (data) {
-                $('#edit_user_form' + user_id)[0].reset();
-                $('#edit_user_modal' + user_id).modal('hide');
-                display_users();
+                $('#edit_staff_kap_form' + user_id)[0].reset();
+                $('#edit_staff_kap_modal' + user_id).modal('hide');
+                display_kap();
                 Swal.fire({
                     title: 'Edited',
-                    text: 'User Edited Successfully',
+                    text: 'Staff Kap Edited Successfully',
                     icon: 'success',
                 });
 
@@ -273,27 +272,26 @@
         });
     }
 
-        function add_user(event){
-            event.preventDefault();
+    function add_kap(event){
+        event.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: `{{ url('/add-user') }}`,
-                data: $('#add_user_form').serialize(),
-                success: function (data) {
-                    $('#add_user_form')[0].reset();
-                    $('#add_user_modal').modal('hide');
-                    display_users();
-                    Swal.fire({
-                        title: 'Added',
-                        text: 'User Added Successfully',
-                        icon: 'success',
-                    });
+        $.ajax({
+            type: "POST",
+            url: `{{ url('/add-user') }}`,
+            data: $('#add_staff_kap_form').serialize(),
+            success: function (data) {
+                $('#add_staff_kap_form')[0].reset();
+                $('#add_staff_kap_modal').modal('hide');
+                display_kap();
+                Swal.fire({
+                    title: 'Added',
+                    text: 'Staff Kap Added Successfully',
+                    icon: 'success',
+                });
 
-                }
+            }
         });
     }
 </script>
 
 @endsection
-

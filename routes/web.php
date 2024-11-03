@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -13,6 +14,27 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//Fetching
+Route::get('/get-staff-kap', function(){
+    $staff_kap = User::where('role', 'Staff-Kapitan')->get();
+    return response()->json($staff_kap);
+});
+
+Route::get('/get-staff-sec', function(){
+    $staff_sec = User::where('role', 'Staff-Secretary')->get();
+    return response()->json($staff_sec);
+});
+
+Route::get('/get-users', function(){
+    $users = User::where('role', 'User')->get();
+    return response()->json($users);
+});
+
+//Function
+Route::post('/add-user', [UserController::class, 'add_user']);
+Route::post('/edit-user', [Usercontroller::class, 'edit_user']);
+Route::post('/delete-user', [UserController::class, 'delete_user']);
 
 Route::get('/', function () {
     return view('login');
@@ -50,6 +72,22 @@ Route::get('/admin-dashboard', function(){
 Route::get('/admin-users', function(){
     if (Auth::check() && auth()->user()->role = 'Admin'){
         return view('admin.users');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/admin-staff-kapitan', function(){
+    if (Auth::check() && auth()->user()->role = 'Admin'){
+        return view('admin.staff_kapitan');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/admin-staff-secretary', function(){
+    if (Auth::check() && auth()->user()->role = 'Admin'){
+        return view('admin.staff_secretary');
     }else{
         return redirect('/');
     }

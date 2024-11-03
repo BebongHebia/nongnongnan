@@ -64,4 +64,43 @@ class UserController extends Controller
 
         return redirect('/');
     }
+
+    public function add_user(Request $request){
+
+        $get_latest_user_id = User::latest()->first();
+
+        User::create([
+            'complete_name' => $request->complete_name,
+            'purok' => $request->purok,
+            'sex' => $request->sex,
+            'bday' => $request->bday,
+            'phone' => $request->phone,
+            'role' => $request->role,
+            'status' => 'Active',
+            'username' => date("Ymd") . $get_latest_user_id->id,
+            'password' => date("Ymd") . $get_latest_user_id->id,
+            'user_password' => date("Ymd") . $get_latest_user_id->id,
+        ]);
+
+        return response()->json();
+    }
+
+    public function edit_user(Request $request){
+        $user = User::find($request->user_id);
+        $user->complete_name = $request->complete_name;
+        $user->purok = $request->purok;
+        $user->sex = $request->sex;
+        $user->bday = $request->bday;
+        $user->phone = $request->phone;
+        $user->status = $request->status;
+        $user->save();
+        return response()->json();
+
+    }
+
+    public function delete_user(Request $request){
+        $user = User::find($request->user_id);
+        $user->delete();
+        return response()->json();
+    }
 }
