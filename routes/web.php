@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -88,6 +89,17 @@ Route::get('/admin-staff-kapitan', function(){
 Route::get('/admin-staff-secretary', function(){
     if (Auth::check() && auth()->user()->role = 'Admin'){
         return view('admin.staff_secretary');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/admin-transactions', function(){
+    if (Auth::check() && auth()->user()->role = 'Admin'){
+
+        $transactions = Transaction::all();
+
+        return view('admin.transactions', ['transactions' => $transactions]);
     }else{
         return redirect('/');
     }
