@@ -18,6 +18,7 @@ class UserController extends Controller
                 'phone' => $request->phone,
                 'username' => $request->username,
                 'password' => $request->password,
+                'user_password' => $request->password,
                 'sex' => $request->sex,
                 'role' => 'User',
                 'status' => 'Active',
