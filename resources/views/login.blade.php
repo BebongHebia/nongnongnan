@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nongnongan Daily Transaction System</title>
+  <title>OBMSDT</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,18 +14,18 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-color: #3A6C7C;">
 <div class="login-box">
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
+  <div class="card card-outline card-primary" style="background-color: #3A6C7C; border-color: #ffffff;">
     <div class="card-header text-center">
         <center>
             <img src="{{ asset('images/logo.png') }}" class="img-fluid img-circle">
         </center>
-      <a href="{{ url('/') }}" class="h5"><b>Barangay Nongnongnan Daily Transaction System - Mao ni akong gi utro karun</b></a>
+      <a href="{{ url('/') }}" class="h5" style="color: white;"><b>Barangay Old Nongnongnan Daily Transaction System</b></a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg" style="color: white;"> Sign in to start your session </p>
 
       <form action="{{ url('/login') }}" method="post">
         @csrf
@@ -48,15 +48,21 @@
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block"> Sign In </button>
           </div>
           <!-- /.col -->
         </div>
+
+        <div class="row">
+        <div class="col-sm-12">
+        </div>
+      </div>
+
       </form>
       <div class="row mt-2">
         <div class="col-sm-12">
             <center>
-                <a href="{{ url('/create-account') }}" class="btn btn-primary btn-block">
+                <a href="{{ url('/create-account') }}" class="btn btn-success btn-block">
                     Create Account
                 </a>
             </center>
@@ -64,9 +70,9 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-12 pt-5">
+        <div class="col-sm-12 pt-2">
             <center>
-                <a href="{{ url('/forgot-password') }}" class="text-start mt-2">Forgot Password</a>
+                <a href="{{ url('/forgot-password') }}" class="text-start mt-2" style="color: white;"> Forgot Password? </a>
 
             </center>
         </div>
