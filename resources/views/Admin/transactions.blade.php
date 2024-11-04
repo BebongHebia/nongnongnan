@@ -23,12 +23,13 @@
                         <p>List of Transactions</p>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover table-bordered table-striped">
+                        <table class="table table-hover table-bordered table-striped" id="data_table">
                             <thead class="table-warning">
                                 <th>Transaction Code</th>
                                 <th>Complete Name</th>
                                 <th>Address</th>
                                 <th>Document Type</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
                                 @foreach ($transactions as $item_transactions)
@@ -37,7 +38,11 @@
                                         <td>{{ $item_transactions->get_user->complete_name }}</td>
                                         <td>{{ $item_transactions->address }}</td>
                                         <td>{{ $item_transactions->document_type }}</td>
-
+                                        <td>
+                                            <a href="{{ url('/admin-transactions/document-type=' . $item_transactions->document_type . '/transaction-id=' . $item_transactions->id) }}" class="btn btn-primary">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

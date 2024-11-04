@@ -104,3 +104,15 @@ Route::get('/admin-transactions', function(){
         return redirect('/');
     }
 });
+
+
+Route::get('/admin-transactions/document-type={doc_type}/transaction-id={trans_id}', function($doc_type, $trans_id){
+    if (Auth::check() && auth()->user()->role = 'Admin'){
+
+        $transactions = Transaction::find($trans_id);
+
+        return view('admin.view_transactions', ['transactions' => $transactions]);
+    }else{
+        return redirect('/');
+    }
+});
