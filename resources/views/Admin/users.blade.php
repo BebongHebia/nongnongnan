@@ -77,7 +77,7 @@
             <div class="col-sm-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <p class="card-text">List of Kapitan</p>
+                        <p class="card-text">List of Users</p>
                     </div>
                     <div class="card-body">
                         <table class="table table-hover table-striped table-bordered" id="data_table">

@@ -502,7 +502,63 @@
                                     </div>
 
                                 @elseif($transactions->document_type == "Barangay Certification")
-                                    <h5>Barangay Certification</h5>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <center>
+                                                <img src="{{ asset('images/logo.png') }}" class="img-fluid">
+                                                <p class="text-center; font-weight:bold">Republic of the Philippines <br> Brgy Old Nongnongan, Don Carlos. <br> Bukidnon. <br> Region X.</p>
+
+                                            </center>
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-6"></div>
+                                                <div class="col-sm-6">
+                                                    <center>
+
+                                                        <p style="font-weight: bold">{{ date("m-d-Y") }}<br>____________________________________________ <br>Date:</p>
+                                                    </center>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <center>
+                                                        <h4>BARANGAY CERTIFICATION</h4>
+                                                    </center>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <center>
+                                                        @php
+                                                            $birthdate = $transactions->get_user->bday; // e.g., "2022-02-02"
+                                                            $age = Carbon::parse($birthdate)->age;
+                                                        @endphp
+                                                        <p class="text-justify">This is to certify that <input type="text" name="complete_name" value="{{ $transactions->get_user->complete_name }}" style="width:300px"> age <input type="text" name="complete_name" value="{{ $age }}" style="width:300px">, Filipino and a resident of Purok <input type="text" name="complete_name" value="{{ $transactions->address }}" style="width:100">.</p>
+                                                        <p class="text-justify">{{ $transactions->get_user->complete_name }} has good community standing and law-abiding citizen with no criminal offense/activities on record in this office </p>
+                                                        <p class="text-justify">This certificatio is issued for <input type="text" name="complete_name" value="{{ $transactions->purpose }}" style="width:300px"> only to it may serve</p>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6"></div>
+                                                <div class="col-sm-6">
+                                                    <center>
+                                                        @php
+                                                            $kapitan = App\Models\User::where('role', 'Staff-Kapitan')->latest()->first();
+                                                        @endphp
+                                                    <p style="font-weight: bold">{{ $kapitan->complete_name }}<br>______________________________ <br>Punong Barangay</p>
+
+                                                    </center>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
 
                                 @elseif($transactions->document_type == "Barangay Cert - First-time Job Seeker")
                                     <h5>Barangay Cert - First-time Job Seeker</h5>
