@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,9 @@ Route::get('/get-users', function(){
 Route::post('/add-user', [UserController::class, 'add_user']);
 Route::post('/edit-user', [Usercontroller::class, 'edit_user']);
 Route::post('/delete-user', [UserController::class, 'delete_user']);
-
+Route::post('/receive-transactions', [TransactionController::class, 'receive_transactions']);
+Route::post('/decline-transactions', [TransactionController::class, 'decline_transactions']);
+Route::post('/print-transactions', [TransactionController::class, 'print_transactions']);
 Route::get('/', function () {
     return view('login');
 });
@@ -115,4 +118,9 @@ Route::get('/admin-transactions/document-type={doc_type}/transaction-id={trans_i
     }else{
         return redirect('/');
     }
+});
+
+Route::get('/print-transactions-complete/trans-id={trans_id}', function($trans_id){
+    $transactions = Transaction::find($trans_id);
+    return view('print', ['transactions' => $transactions]);
 });

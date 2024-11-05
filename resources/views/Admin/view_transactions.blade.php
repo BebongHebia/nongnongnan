@@ -1,5 +1,13 @@
 @extends('Admin.sidebar')
 @section('sidebar')
+
+@php
+    use Carbon\Carbon;
+
+    $dateToday = Carbon::today()->format('jS \d\a\y \o\f F Y');
+
+@endphp
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -43,7 +51,185 @@
                             <li class="list-group-item">
                                 <b>Phone</b> <a class="float-right">{{ $transactions->get_user->phone }}</a>
                             </li>
+                            <li class="list-group-item">
+                                <b>Civil Status</b> <a class="float-right">{{ $transactions->civil_status }}</a>
+                            </li>
                         </ul>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+
+                        <h5 class="text-center">Request Details</h5>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Document</b> <a class="float-right">{{ $transactions->document_type }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Purpose</b> <a class="float-right">{{ $transactions->purpose }}</a>
+                            </li>
+                        </ul>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+
+                                @if ($transactions->status == "Pending")
+                                <button class="btn btn-success btn-block" data-toggle="modal" data-target="#rec_schd_modal">
+                                    <i class="fas fa-check"></i> Set Schedule
+                                </button>
+                                @endif
+
+
+
+                                <div class="modal fade" id="rec_schd_modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Set Schedule</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ url('/receive-transactions') }}" method="POST">
+                                                    @csrf
+
+                                                    <input type="hidden" name="trans_id" value="{{ $transactions->id }}">
+
+                                                    <h5 class="text-start">Transaction Code : <span style="color:red; font-weight:bold">{{ $transactions->transaction_code }}</span></h5>
+
+                                                    <hr>
+                                                    <label>Schedule</label>
+                                                    <input type="date" name="schedule" class="form-control">
+
+                                                    <label>Remarks</label>
+                                                    <textarea name="remarks" class="form-control"></textarea>
+
+                                                    <label>Payable</label>
+                                                    <input type="text" name="payable" class="form-control">
+
+
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-primary">
+                                                    <i class="fas fa-check"></i> Set
+                                                </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                @if ($transactions->status == "Pending")
+                                    <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#dec_transaction_modal">
+                                        <i class="fas fa-window-close"></i> Decline
+                                    </button>
+                                @endif
+
+
+                                <div class="modal fade" id="dec_transaction_modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Decline Requests</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ url('/decline-transactions') }}" method="POST">
+                                                    @csrf
+
+                                                    <input type="hidden" name="trans_id" value="{{ $transactions->id }}">
+
+                                                    <h5 class="text-start">Transaction Code : <span style="color:red; font-weight:bold">{{ $transactions->transaction_code }}</span></h5>
+
+                                                    <hr>
+                                                    <label>Remarks / Reasons of Decline</label>
+                                                    <textarea name="remarks" class="form-control"></textarea>
+
+
+
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-danger">Proceed Decline</button>
+                                            </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                            </div>
+                        </div>
+
+
+
+                        @if ($transactions->status == "Received")
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success btn-block" data-toggle="modal" data-target="#print_modal">
+                                        <i class="fas fa-check"></i> Print
+                                    </button>
+
+
+                                <div class="modal fade" id="print_modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Print Transactions</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ url('/print-transactions') }}" method="POST">
+                                                    @csrf
+
+                                                    <input type="hidden" name="trans_id" value="{{ $transactions->id }}">
+
+                                                    <h5 class="text-start">Transaction Code : <span style="color:red; font-weight:bold">{{ $transactions->transaction_code }}</span></h5>
+
+                                                    <hr>
+
+                                                    <label>O.R No.#</label>
+                                                    <input type="text" name="or_no" class="form-control">
+
+                                                    <label>Validity</label>
+                                                    <input type="date" name="validity" class="form-control">
+
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-success">Proceed</button>
+                                            </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- /.modal -->
+                                </div>
+                            </div>
+                        @endif
+
 
                     </div>
                     <!-- /.card-body -->
@@ -99,10 +285,221 @@
                                                     </center>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-sm-6"></div>
+                                                <div class="col-sm-6">
+                                                    <center>
+                                                        @php
+                                                            $kapitan = App\Models\User::where('role', 'Staff-Kapitan')->latest()->first();
+                                                        @endphp
+                                                    <p style="font-weight: bold">{{ $kapitan->complete_name }}<br>______________________________ <br>Punong Barangay</p>
+
+                                                    </center>
+
+                                                </div>
+                                            </div>
                                         </div>
+
+
                                     </div>
                                 @elseif($transactions->document_type == "Barangay Clearance")
-                                    <h5>Barangay Clearance</h5>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <center>
+                                                        <img src="{{ asset('/images/logo.png') }}" class="img-fluid" style="width:100px">
+                                                    </center>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <center>
+                                                        <p class="text-center; font-weight:bold"><span style="font-weight: bold; font-size:14pt">Republic of the Philippines</span> <br> Brgy Old Nongnongan, Don Carlos. <br> Bukidnon. <br> Region X.</p>
+
+                                                    </center>
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <center>
+                                                        <img src="{{ asset('/images/municipality_logo.png') }}" class="img-fluid" style="width:100px">
+                                                    </center>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div style="width:50%; background-color:yellow; margin:auto; padding:20px; border-radius:10px;">
+                                                        <h3 class="text-center" style="font-weight: bolder">BARANGAY CLEARANCE</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="col-sm-12">
+                                                    <h3>TO WHOME IT MAY CONCERN :</h3>
+                                                    <p class="text-center">THIS IS TO CERTIFY that the name written below has requested record clearance from this office and verified with the following findings:</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">NAME</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->name }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">ADDRESS</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->address }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">DATE OF BIRTH</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->bday }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">PLACE OF BIRTH</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->bplace }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">SEX</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->sex }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">CIVIL STATUS</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->civil_status }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">PURPOSE</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->purpose }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">VALID UNTIL</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->validity }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">O.R NO.#</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">: {{ $transactions->or_no }}</h4>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <h4 class="text-start">RES. CERT. NO.#</h4>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <h4 class="text-start">:</h4>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p class="text-start">The above mentioned name is a law abiding citizens and found <b>NO DEROGATORY RECORDS</b> as far as the office is concerned</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p class="text-start">Issued this {{ \Carbon\Carbon::today()->format('jS \d\a\y \o\f F Y') }} at the office of the PUNONG BARANGAY OLD NONGNONGAN, DON CARLOS, BUKIDNON.</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-sm-3">
+                                                    <center>
+                                                        <p class="text-start"><b>Prepared by: <br> {{ auth()->user()->complete_name }} <br> __________________________________ <br> {{ auth()->user()->role }}</b></p>
+                                                    </center>
+                                                </div>
+                                                <div class="col-sm-9">
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-9">
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    @php
+                                                            $kapitan = App\Models\User::where('role', 'Staff-Kapitan')->latest()->first();
+                                                        @endphp
+
+                                                    <p class="text-center" style="font-weight: bold">Noted By: <br> {{ $kapitan->complete_name }}<br>______________________________ <br>Punong Barangay</p>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
 
                                 @elseif($transactions->document_type == "Barangay Certification")
                                     <h5>Barangay Certification</h5>
@@ -127,4 +524,5 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
 @endsection
