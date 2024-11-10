@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -104,5 +106,19 @@ class UserController extends Controller
         $user->delete();
         return response()->json();
     }
+
+    public function update_user_profile(Request $request){
+        $user = User::find($request->user_id);
+        $user->complete_name = $request->complete_name;
+        $user->purok = $request->purok;
+        $user->sex = $request->sex;
+        $user->bday = $request->bday;
+        $user->phone = $request->phone;
+        $user->save();
+        return redirect()->back();
+
+    }
+
+
 
 }

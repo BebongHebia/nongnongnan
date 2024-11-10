@@ -451,7 +451,40 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2">
+                                                            <div style="width: 100%; border:1px solid black; height:200px; text-align: center; line-height: 150px;" class="center-cropped">
+                                                                <center>
 
+                                                                    @php
+                                                                        $get_image_existence = App\Models\UserIdPic::where('user_id', $transactions->user_id)->count();
+                                                                        $get_id = App\Models\UserIdPic::where('user_id', $transactions->user_id)->get();
+                                                                    @endphp
+
+                                                                    @if ($get_image_existence == 0)
+                                                                        <img src="{{ asset('images/logo.png') }}" class="img-fluid" style="vertical-align: middle;">
+
+                                                                    @else
+                                                                        @foreach ($get_id as $item_get_id)
+                                                                            <img src="{{ asset('storage/'. $item_get_id->path) }}" class="img-fluid" alt="User Image" style="width:100%">
+
+                                                                        @endforeach
+                                                                    @endif
+
+
+                                                                </center>
+                                                            </div>
+                                                            <form action="{{ url('/transaction-add-id') }}" method="POST" enctype="multipart/form-data">
+                                                                @csrf
+
+                                                                <input type="hidden" name="user_id" value="{{ $transactions->user_id }}">
+
+                                                                <input type="file" name="image" class="form-control">
+
+
+                                                                <button class="btn btn-warning btn-block">
+                                                                    <i class="fas fa-arrow-alt-circle-up"></i> Upload
+                                                                </button>
+
+                                                            </form>
                                                         </div>
 
                                                     </div>

@@ -124,6 +124,10 @@
                             <td>${staff_kap.phone}</td>
                             <td>${staff_kap.status}</td>
                             <td>
+                                <a href="{{ url('/view-user=${staff_kap.id}') }}" class="btn btn-warning">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#edit_staff_kap_modal${staff_kap.id}">
                                     <i class="fas fa-edit"></i>
                                 </button>

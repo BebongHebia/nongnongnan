@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Users</h1>
+                <h1 class="m-0">Kagawad</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -16,26 +16,27 @@
 <section class="content">
     <div class="container-fluid">
 
+
+
+
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#add_user_modal">
-                    <i class="fas fa-plus"></i> Add User
+                <button class="btn btn-primary" data-toggle="modal" data-target="#add_kagawad_modal">
+                    <i class="fas fa-plus"></i> Add Kagawad
                 </button>
 
-                <div class="modal fade" id="add_user_modal">
+                <div class="modal fade" id="add_kagawad_modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Add User</h4>
+                                <h4 class="modal-title">Add Kagawad</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="add_user_form">
+                                <form id="add_kagawad_form">
                                     @csrf
-
-                                    <input type="hidden" name="role" class="form-control" value="User">
 
                                     <label>Complete Name</label>
                                     <input type="text" name="complete_name" class="form-control" placeholder="Enter Complete Name">
@@ -50,7 +51,7 @@
                                     <input type="date" name="bday" class="form-control">
 
                                     <label>Purok - Address</label>
-                                    <input type="text" name="purok" class="form-control" placeholder="Enter Purok">
+                                    <input type="text" name="address" class="form-control" placeholder="Enter Purok">
 
                                     <label>Phone</label>
                                     <input type="text" name="phone" class="form-control" placeholder="Enter Phone">
@@ -59,7 +60,7 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" onclick="add_user(event)" class="btn btn-primary">Submit</button>
+                                <button type="button" onclick="add_kagawad(event)" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -70,33 +71,35 @@
             </div>
         </div>
 
+
         <div class="row mt-2">
             <div class="col-sm-12">
+
                 <div class="card card-primary">
                     <div class="card-header">
-                        <p class="card-text">List of Users</p>
+                        <p class="text-start">List of Kagawad</p>
                     </div>
+
                     <div class="card-body">
                         <table class="table table-hover table-striped table-bordered" id="data_table">
                             <thead class="table-warning">
-                                <th>Complete Name</th>
+                                <th>Complete name</th>
                                 <th>Sex</th>
-                                <th>Birthdate</th>
-                                <th>Purok</th>
+                                <th>Birthday</th>
+                                <th>Address</th>
                                 <th>Phone</th>
-                                <th>Username</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </thead>
-                            <tbody id="user_table_body">
+                            <tbody id="kagawad_table_body">
 
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
-
 
 
     </div><!-- /.container-fluid -->
@@ -104,60 +107,60 @@
 <!-- /.content -->
 
 <script>
-    display_users();
-    function display_users(){
+
+    display_kagawad();
+
+    function display_kagawad(){
         $.ajax({
             type: "GET",
-            url: `{{ url('/get-users') }}`,
+            url: `{{ url('/get_kagawad') }}`,
             success: function (data) {
                 let rows = '';
-
-                $.each(data, function(index, users){
+                $.each(data, function (index, kagawad) {
                     rows += `
+
                         <tr>
-                            <td>${users.complete_name}</td>
-                            <td>${users.sex}</td>
-                            <td>${users.bday}</td>
-                            <td>${users.purok}</td>
-                            <td>${users.phone}</td>
-                            <td>${users.username}</td>
-                            <td>${users.status}</td>
+                            <td>${kagawad.complete_name}</td>
+                            <td>${kagawad.sex}</td>
+                            <td>${kagawad.bday}</td>
+                            <td>${kagawad.address}</td>
+                            <td>${kagawad.phone}</td>
+                            <td>${kagawad.status}</td>
                             <td>
 
-                                <a href="{{ url('/admin-users/id=${users.id}') }}" class="btn btn-warning">
+                                <a href="{{ url('/view-kagawad=${kagawad.id}') }}" class="btn btn-warning">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#edit_user_modal${users.id}">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#edit_kagawad_modal${kagawad.id}">
                                     <i class="fas fa-edit"></i>
                                 </button>
 
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete_user_modal${users.id}">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete_kagawad_modal${kagawad.id}">
                                     <i class="fas fa-trash"></i>
                                 </button>
 
-                                <div class="modal fade" id="delete_user_modal${users.id}">
+
+                                <div class="modal fade" id="delete_kagawad_modal${kagawad.id}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Delete User</h4>
+                                                <h4 class="modal-title">Delete Kagawad</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="delete_user_form${users.id}">
+                                                <form id="delete_kagawad_form${kagawad.id}">
                                                     @csrf
 
-                                                    <input type="hidden" name="user_id" value="${users.id}">
-
-                                                   <h5 class="text-center">Are you sure you want to delete?</h5>
-
+                                                    <input type="hidden" value="${kagawad.id}" name="kag_id">
+                                                    <h5 class="text-center">Are you sure you want to delete?</h5>
                                                 </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" onclick="delete_user(event, ${users.id})" class="btn btn-danger">Confirm</button>
+                                                <button type="button" onclick="delete_kagawad(event, ${kagawad.id})" class="btn btn-danger">Confirm Delete</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
@@ -167,52 +170,51 @@
                                 <!-- /.modal -->
 
 
-                                <div class="modal fade" id="edit_user_modal${users.id}">
+                                <div class="modal fade" id="edit_kagawad_modal${kagawad.id}">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Edit User</h4>
+                                                <h4 class="modal-title">Edit Kagawad</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="edit_user_form${users.id}">
+                                                <form id="edit_kagawad_form${kagawad.id}">
                                                     @csrf
 
-                                                    <input type="hidden" name="user_id" value="${users.id}">
-
+                                                    <input type="hidden" value="${kagawad.id}" name="kag_id">
                                                     <label>Complete Name</label>
-                                                    <input type="text" name="complete_name" value="${users.complete_name}" class="form-control">
+                                                    <input type="text" value="${kagawad.complete_name}" name="complete_name" class="form-control" placeholder="Enter Complete Name">
 
                                                     <label>Sex</label>
                                                     <select class="form-select select2" name="sex">
-                                                        <option value="${users.sex}" selected>${users.sex}</option>
+                                                        <option value="${kagawad.complete_name}" selected>${kagawad.complete_name} selected</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                     </select>
 
                                                     <label>Date of birth</label>
-                                                    <input type="date" name="bday" value="${users.bday}" class="form-control">
+                                                    <input type="date" value="${kagawad.bday}"  name="bday" class="form-control">
 
                                                     <label>Purok - Address</label>
-                                                    <input type="text" name="purok" value="${users.purok}" class="form-control" placeholder="Enter Purok">
+                                                    <input type="text" value="${kagawad.address}" name="address" class="form-control" placeholder="Enter Purok">
 
                                                     <label>Phone</label>
-                                                    <input type="text" name="phone" value="${users.phone}" class="form-control" placeholder="Enter Phone">
+                                                    <input type="text" value="${kagawad.phone}" name="phone" class="form-control" placeholder="Enter Phone">
+
 
                                                     <label>Status</label>
                                                     <select class="form-select select2" name="status">
-                                                        <option value="${users.status}">${users.status}</option>
+                                                        <option value="${kagawad.status}" selected>${kagawad.status} selected</option>
                                                         <option value="Active">Active</option>
                                                         <option value="Inactive">Inactive</option>
                                                     </select>
-
                                                 </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" onclick="edit_user(event, ${users.id})" class="btn btn-primary">Save changes</button>
+                                                <button type="button" onclick="edit_kagawad(event, ${kagawad.id})" class="btn btn-primary">Save change</button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
@@ -225,77 +227,77 @@
                         </tr>
 
 
-
                     `;
                 });
 
-                $('#user_table_body').html(rows);
-                $('.select2').select2();
+                $('#kagawad_table_body').html(rows);
             }
         });
     }
 
-    function delete_user(event, user_id){
+
+    function delete_kagawad(event, kag_id){
         event.preventDefault();
+
         $.ajax({
             type: "POST",
-            url: `{{ url('/delete-user') }}`,
-            data: $('#delete_user_form' + user_id).serialize(),
+            url: `{{ url('/delete-kagawad') }}`,
+            data: $('#delete_kagawad_form' + kag_id).serialize(),
             success: function (data) {
-                $('#delete_user_form' + user_id)[0].reset();
-                $('#delete_user_modal' + user_id).modal('hide');
-                display_users();
+                $('#delete_kagawad_form' + kag_id)[0].reset();
+                $('#delete_kagawad_modal' + kag_id).modal('hide');
+                display_kagawad();
+
                 Swal.fire({
                     title: 'Deleted',
-                    text: 'User Deleted Successfully',
+                    text: 'Kagawad Deleted Successfully',
                     icon: 'warning',
                 });
-
             }
         });
     }
 
-    function edit_user(event, user_id){
+    function edit_kagawad(event, kag_id){
         event.preventDefault();
+
         $.ajax({
             type: "POST",
-            url: `{{ url('/edit-user') }}`,
-            data: $('#edit_user_form' + user_id).serialize(),
+            url: `{{ url('/edit-kagawad') }}`,
+            data: $('#edit_kagawad_form' + kag_id).serialize(),
             success: function (data) {
-                $('#edit_user_form' + user_id)[0].reset();
-                $('#edit_user_modal' + user_id).modal('hide');
-                display_users();
+                $('#edit_kagawad_form' + kag_id)[0].reset();
+                $('#edit_kagawad_modal' + kag_id).modal('hide');
+                display_kagawad();
+
                 Swal.fire({
                     title: 'Edited',
-                    text: 'User Edited Successfully',
+                    text: 'Kagawad Edited Successfully',
                     icon: 'success',
                 });
-
             }
         });
     }
 
-        function add_user(event){
-            event.preventDefault();
+    function add_kagawad(event){
+        event.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: `{{ url('/add-user') }}`,
-                data: $('#add_user_form').serialize(),
-                success: function (data) {
-                    $('#add_user_form')[0].reset();
-                    $('#add_user_modal').modal('hide');
-                    display_users();
-                    Swal.fire({
-                        title: 'Added',
-                        text: 'User Added Successfully',
-                        icon: 'success',
-                    });
+        $.ajax({
+            type: "POST",
+            url: `{{ url('/add-kagawad') }}`,
+            data: $('#add_kagawad_form').serialize(),
+            success: function (data) {
+                $('#add_kagawad_form')[0].reset();
+                $('#add_kagawad_modal').modal('hide');
 
-                }
+                display_kagawad();
+                Swal.fire({
+                    title: 'Added',
+                    text: 'Kagawad Added Successfully',
+                    icon: 'success',
+                });
+            }
         });
     }
 </script>
-
 @endsection
 

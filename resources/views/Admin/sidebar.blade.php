@@ -100,6 +100,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('/admin-kagawad') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Kagawad
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('/admin-users') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
@@ -113,6 +121,15 @@
                         <i class="nav-icon fas fa-file"></i>
                         <p>
                             Transactions
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/admin-org-charts') }}" class="nav-link">
+                        <i class="nav-icon fas fa-tree"></i>
+                        <p>
+                            Organizational Chart
                         </p>
                     </a>
                 </li>
