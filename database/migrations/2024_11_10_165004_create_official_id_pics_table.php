@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kagawad_id_pics', function (Blueprint $table) {
+        Schema::create('official_id_pics', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->string('path');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kagawad_id_pics');
+        Schema::dropIfExists('official_id_pics');
     }
 };

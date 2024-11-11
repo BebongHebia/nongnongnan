@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kagawad extends Model
+class Official extends Model
 {
     use HasFactory;
 
@@ -15,6 +15,8 @@ class Kagawad extends Model
         'bday',
         'address',
         'phone',
+        'role',
+        'fields',
         'status',
         'system_id',
     ];

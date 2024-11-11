@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KagawadIdPic;
+use App\Models\OfficialIdPic;
 use Illuminate\Http\Request;
 
-class KagawadIdPicController extends Controller
+class OfficialIdPicController extends Controller
 {
-    public function add_id_pic(Request $request){
-        $profile_exists = KagawadIdPic::where('user_id', $request->kagawad_id)->count();
+    public function add_off_id(Request $request){
+        $profile_exists = OfficialIdPic::where('user_id', $request->user_id)->count();
 
         if ($profile_exists){
             $request->validate([
@@ -17,10 +17,10 @@ class KagawadIdPicController extends Controller
 
             $imagePath = $request->file('image')->store('images', 'public');
 
-            $get_profile = KagawadIdPic::where('user_id', $request->kagawad_id)->get();
+            $get_profile = OfficialIdPic::where('user_id', $request->user_id)->get();
 
             foreach ($get_profile as $item_get_profile) {
-                $picture = KagawadIdPic::find($item_get_profile->id);
+                $picture = OfficialIdPic::find($item_get_profile->id);
                 $picture->path = $imagePath;
                 $picture->filename = $request->file('image')->getClientOriginalName();
                 $picture->save();
@@ -34,14 +34,13 @@ class KagawadIdPicController extends Controller
 
             $imagePath = $request->file('image')->store('images', 'public');
 
-            KagawadIdPic::create([
-                'user_id' => $request->kagawad_id,
+            OfficialIdPic::create([
+                'user_id' => $request->user_id,
                 'path' =>  $imagePath,
                 'filename' => $request->file('image')->getClientOriginalName(),
             ]);
 
             return redirect()->back();
         }
-
     }
 }

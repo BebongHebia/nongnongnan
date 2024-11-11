@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KagawadIdPic extends Model
+class OfficialIdPic extends Model
 {
     use HasFactory;
 

@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\OfficialIdPicController;
 use App\Models\User;
 use App\Models\Kagawad;
+use App\Models\Official;
 use App\Models\Transaction;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KagawadController;
+use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\UserIdPicController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
@@ -45,12 +48,13 @@ Route::get('/fetch-announcement', function(){
     return response()->json($announcement);
 });
 
+Route::get('/fetch-official', function(){
+    $official = Official::all();
 
-Route::get('/get_kagawad', function(){
-    $kagawad = Kagawad::all();
-    return response()->json($kagawad);
-
+    return response()->json($official);
 });
+
+
 
 //Function
 Route::post('/add-user', [UserController::class, 'add_user']);
@@ -63,14 +67,13 @@ Route::post('/transaction-add-id', [UserIdPicController::class, 'add_id']);
 Route::post('/add-announcement', [AnnouncementController::class, 'add_announcement']);
 Route::post('/edit-announcement', [AnnouncementController::class, 'edit_announcement']);
 Route::post('/delete-announcement', [AnnouncementController::class, 'delete_announcement']);
-Route::post('/add-kagawad', [KagawadController::class, 'add_kagawad']);
-Route::post('/edit-kagawad', [KagawadController::class, 'edit_kagawad']);
-Route::post('/delete-kagawad', [KagawadController::class, 'delete_kagawad']);
-Route::post('/update-user-profile', [Usercontroller::class, 'update_user_profile']);
-Route::post('/add-kagawad-id', [KagawadIdPicController::class, 'add_id_pic']);
-Route::post('/update-kagawad-profile', [KagawadController::class, 'update_kagawad_profile']);
 
+Route::post('/add-official', [OfficialController::class, 'add_official']);
+Route::post('/edit-official', [OfficialController::class, 'edit_official']);
+Route::post('/delete-official', [OfficialController::class, 'delete_official']);
 
+Route::post('/add-off-id', [OfficialIdPicController::class, 'add_off_id']);
+Route::post('/update-official-profile', [OfficialController::class, 'edit_official_v2']);
 
 Route::get('/', function () {
     return view('login');
@@ -129,13 +132,25 @@ Route::get('/admin-staff-secretary', function(){
     }
 });
 
-Route::get('/admin-kagawad', function(){
+Route::get('/admin-officials', function(){
     if (Auth::check() && auth()->user()->role = 'Admin'){
-        return view('admin.kagawad');
+        return view('admin.officials');
     }else{
         return redirect('/');
     }
 });
+
+Route::get('/view-officials={off_id}', function($off_id){
+    if (Auth::check() && auth()->user()->role = 'Admin'){
+
+        $official_details = Official::find($off_id);
+
+        return view('admin.official_profile', ['official_details' => $official_details]);
+    }else{
+        return redirect('/');
+    }
+});
+
 
 Route::get('/view-user={user_id}', function($user_id){
     if (Auth::check() && auth()->user()->role = 'Admin'){
@@ -148,16 +163,6 @@ Route::get('/view-user={user_id}', function($user_id){
     }
 });
 
-Route::get('/view-kagawad={user_id}', function($user_id){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
-
-        $kagawad_details = Kagawad::find($user_id);
-
-        return view('admin.kagawad_profile', ['kagawad_details' => $kagawad_details]);
-    }else{
-        return redirect('/');
-    }
-});
 
 
 

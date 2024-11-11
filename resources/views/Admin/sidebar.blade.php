@@ -85,7 +85,7 @@
                     <a href="{{ url('/admin-staff-kapitan') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Staff Kapitan
+                            Punong Barangay
                         </p>
                     </a>
                 </li>
@@ -94,15 +94,16 @@
                     <a href="{{ url('/admin-staff-secretary') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Staff Secretary
+                            Secretary
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/admin-kagawad') }}" class="nav-link">
+                    <a href="{{ url('/admin-officials') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
-                        <p>Kagawad
+                        <p>
+                            Officials
                         </p>
                     </a>
                 </li>

@@ -1,79 +1,6 @@
 @extends('Admin.sidebar')
 @section('sidebar')
 
-<head>
-    <style scoped>
-
-.org-chart ul {
-  padding-top: 20px;
-  position: relative;
-  transition: all 0.5s;
-}
-
-.org-chart li {
-  float: left;
-  text-align: center;
-  list-style-type: none;
-  position: relative;
-  padding: 20px 5px 0 5px;
-  transition: all 0.5s;
-}
-
-.org-chart li::before, .org-chart li::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 50%;
-  border-top: 2px solid #ccc;
-  width: 50%;
-  height: 20px;
-}
-
-.org-chart li::after {
-  right: auto;
-  left: 50%;
-  border-left: 2px solid #ccc;
-}
-
-.org-chart li:only-child::after, .org-chart li:only-child::before {
-  display: none;
-}
-
-.org-chart li:only-child {
-  padding-top: 0;
-}
-
-.org-chart li:first-child::before, .org-chart li:last-child::after {
-  border: 0 none;
-}
-
-.org-chart li:last-child::before {
-  border-right: 2px solid #ccc;
-  border-radius: 0 5px 0 0;
-}
-
-.org-chart li:first-child::after {
-  border-radius: 5px 0 0 0;
-}
-
-.org-chart .node {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 5px;
-  background: #5a9;
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  transition: background 0.3s;
-}
-
-.org-chart .node:hover {
-  background: #478;
-}
-
-    </style>
-</head>
 
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -91,38 +18,152 @@
 <section class="content">
     <div class="container-fluid">
 
-        <div class="org-chart">
-            <ul>
-              <li>
-                <div class="node">CEO</div>
-                <ul>
-                  <li>
-                    <div class="node">CTO</div>
-                    <ul>
-                      <li><div class="node">Dev Team Lead</div></li>
-                      <li><div class="node">QA Team Lead</div></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <div class="node">CFO</div>
-                    <ul>
-                      <li><div class="node">Finance Manager</div></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <div class="node">COO</div>
-                    <ul>
-                      <li><div class="node">Operations Manager</div></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <center>
+                    @php
+                    $get_punong_barangay = App\Models\User::where('role', 'Staff-Kapitan')->where('status', 'Active')->get();
+                    $get_secretary = App\Models\User::where('role', 'Staff-Secretary')->where('status', 'Active')->get();
+                    $get_offcials = App\Models\Official::where('status', 'Active')->where('role', 'Kagawad')->get();
+                    $get_treasurer = App\Models\Official::where('status', 'Active')->where('role', 'Treasurer')->get();
+                    @endphp
+
+
+                    @foreach ($get_punong_barangay as $item_get_punong_barangay)
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div style="width:15%; margin:auto; border:1px solid rgb(79, 79, 79); border-radius:10px; padding:10px">
+
+                                    @php
+                                    $get_user_profile_exist = App\Models\UserIdPic::where('user_id', $item_get_punong_barangay->id)->count();
+                                    $get_user_profile = App\Models\UserIdPic::where('user_id', $item_get_punong_barangay->id)->get();
+                                    @endphp
+
+                                    @if ($get_user_profile_exist)
+                                    @foreach ($get_user_profile as $item_get_user_profile)
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$item_get_user_profile->path) }}" alt="User profile picture">
+                                    @endforeach
+
+                                    @else
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user_icon.png') }}" alt="User profile picture">
+                                    @endif
+
+                                    <p>
+                                        <b>
+                                            {{ $item_get_punong_barangay->complete_name }}
+                                        </b>
+                                        <br>
+                                        Punong Barangay
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+
+                    <div class="row mt-2">
+                        @foreach ($get_offcials as $item_get_offcials)
+                            <div class="col-sm-3 mt-2">
+                                <div style="width:100%; margin:auto; border:1px solid rgb(79, 79, 79); border-radius:10px; padding:10px">
+
+                                    @php
+                                    $get_user_profile_exist = App\Models\OfficialIdPic::where('user_id', $item_get_offcials->id)->count();
+                                    $get_user_profile = App\Models\OfficialIdPic::where('user_id', $item_get_offcials->id)->get();
+                                    @endphp
+
+                                    @if ($get_user_profile_exist)
+                                    @foreach ($get_user_profile as $item_get_user_profile)
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$item_get_user_profile->path) }}" alt="User profile picture">
+                                    @endforeach
+
+                                    @else
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user_icon.png') }}" alt="User profile picture">
+                                    @endif
+
+                                    <p>
+                                        <b>
+                                            {{ $item_get_offcials->complete_name }}
+                                        </b>
+                                        <br>
+                                        {{ $item_get_offcials->roles }}
+                                        {{ $item_get_offcials->fields }}
+                                    </p>
+
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @foreach ($get_treasurer as $item_get_treasurer)
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <div style="width:15%; margin:auto; border:1px solid rgb(79, 79, 79); border-radius:10px; padding:10px">
+
+                                    @php
+                                    $get_user_profile_exist = App\Models\OfficialIdPic::where('user_id', $item_get_treasurer->id)->count();
+                                    $get_user_profile = App\Models\OfficialIdPic::where('user_id', $item_get_treasurer->id)->get();
+                                    @endphp
+
+                                    @if ($get_user_profile_exist)
+                                    @foreach ($get_user_profile as $item_get_user_profile)
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$item_get_user_profile->path) }}" alt="User profile picture">
+                                    @endforeach
+
+                                    @else
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user_icon.png') }}" alt="User profile picture">
+                                    @endif
+
+                                    <p>
+                                        <b>
+                                            {{ $item_get_treasurer->complete_name }}
+                                        </b>
+                                        <br>
+                                        Barangay Treasurer
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    @foreach ($get_secretary as $item_get_secretary)
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <div style="width:15%; margin:auto; border:1px solid rgb(79, 79, 79); border-radius:10px; padding:10px">
+
+                                    @php
+                                    $get_user_profile_exist = App\Models\UserIdPic::where('user_id', $item_get_secretary->id)->count();
+                                    $get_user_profile = App\Models\UserIdPic::where('user_id', $item_get_secretary->id)->get();
+                                    @endphp
+
+                                    @if ($get_user_profile_exist)
+                                    @foreach ($get_user_profile as $item_get_user_profile)
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$item_get_user_profile->path) }}" alt="User profile picture">
+                                    @endforeach
+
+                                    @else
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user_icon.png') }}" alt="User profile picture">
+                                    @endif
+
+                                    <p>
+                                        <b>
+                                            {{ $item_get_secretary->complete_name }}
+                                        </b>
+                                        <br>
+                                        Barangay Secretary
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </center>
+            </div>
+        </div>
 
 
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
 @endsection
-

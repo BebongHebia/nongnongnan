@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Kagawad Profile</h1>
+                <h1 class="m-0">Dashboard</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -16,6 +16,8 @@
 <section class="content">
     <div class="container-fluid">
 
+
+
         <div class="row">
             <div class="col-md-3">
 
@@ -25,24 +27,24 @@
                         <div class="text-center">
 
                             @php
-                                $get_kagawad_profile_exist = App\Models\KagawadIdPic::where('user_id', $kagawad_details->id)->count();
-                                $get_kagawad_profile = App\Models\KagawadIdPic::where('user_id', $kagawad_details->id)->get();
+                                $get_user_profile_exist = App\Models\OfficialIdPic::where('user_id', $official_details->id)->count();
+                                $get_user_profile = App\Models\OfficialIdPic::where('user_id', $official_details->id)->get();
                             @endphp
 
-                            @if ($get_kagawad_profile_exist)
-                            @foreach ($get_kagawad_profile as $item_get_kagawad_profile)
-                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$item_get_kagawad_profile->path) }}" alt="User profile picture">
+                            @if ($get_user_profile_exist)
+                            @foreach ($get_user_profile as $item_get_user_profile)
+                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$item_get_user_profile->path) }}" alt="User profile picture">
                             @endforeach
 
                             @else
                             <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user_icon.png') }}" alt="User profile picture">
                             @endif
 
-                            <form action="{{ url('/add-kagawad-id') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('/add-off-id') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="kagawad_id" value="{{ $kagawad_details->id }}">
+                                <input type="hidden" name="user_id" value="{{ $official_details->id }}">
                                 <label>Upload/Change User Profile</label>
-                                <input type="file" name="im age" class="form-control">
+                                <input type="file" name="image" class="form-control">
                                 <button class="btn btn-success btn-block mt-2">
                                     <i class="fas fa-arrow-alt-circle-up"></i> Upload
                                 </button>
@@ -69,29 +71,48 @@
                         <div class="tab-content">
                             <div class="active tab-pane" id="activity">
 
-                                <form action="{{ url('/update-kagawad-profile') }}" method="POST">
+                                <form action="{{ url('/update-official-profile') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="kagawad_id" value="{{ $kagawad_details->id }}">
+                                    <input type="hidden" name="off_id" value="{{ $official_details->id }}">
 
                                     <label>Complete Name</label>
-                                    <input type="text" name="complete_name" value="{{ $kagawad_details->complete_name }}" class="form-control">
+                                    <input type="text" name="complete_name" value="{{ $official_details->complete_name }}" class="form-control">
 
                                     <label>Sex</label>
                                     <select class="form-select select2" name="sex" style="width:100%">
-                                        <option value="{{ $kagawad_details->sex }}" selected>{{ $kagawad_details->sex }}</option>
+                                        <option value="{{ $official_details->sex }}" selected>{{ $official_details->sex }}</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
 
                                     <label>Date of birth</label>
-                                    <input type="date" name="bday" value="{{ $kagawad_details->bday }}" class="form-control">
+                                    <input type="date" name="bday" value="{{ $official_details->bday }}" class="form-control">
 
                                     <label>Purok - Address</label>
-                                    <input type="text" name="address" value="{{ $kagawad_details->address }}" class="form-control" placeholder="Enter Purok">
+                                    <input type="text" name="address" value="{{ $official_details->address }}" class="form-control" placeholder="Enter Purok">
 
                                     <label>Phone</label>
-                                    <input type="text" name="phone" value="{{ $kagawad_details->phone }}" class="form-control" placeholder="Enter Phone">
+                                    <input type="text" name="phone" value="{{ $official_details->phone }}" class="form-control" placeholder="Enter Phone">
 
+
+                                    <label>Role</label>
+                                    <select class="form-select select2" name="role" style="width:100%">
+                                        <option value="{{ $official_details->role }}" selected>{{ $official_details->role }}</option>
+                                        <option value="Kagawad">Kagawad</option>
+                                        <option value="SK Chairman">SK Chairman</option>
+                                        <option value="Treasurer">Treasurer</option>
+                                    </select>
+
+                                    <label>Field</label>
+                                    <input type="text" name="fields" value="{{ $official_details->fields }}" class="form-control">
+
+
+                                    <label>Status</label>
+                                    <select class="form-select select2" name="status" style="width:100%">
+                                        <option value="{{ $official_details->status }}" selected>{{ $official_details->status }}</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
 
                                     <button class="btn btn-primary mt-3">
                                         <i class="fas fa-save"></i> Save changes
@@ -115,7 +136,10 @@
         </div>
 
 
+
+
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
 @endsection
+

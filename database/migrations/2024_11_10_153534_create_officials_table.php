@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kagawads', function (Blueprint $table) {
+        Schema::create('officials', function (Blueprint $table) {
             $table->id();
             $table->string('complete_name');
             $table->string('sex');
             $table->string('bday');
             $table->string('address');
             $table->string('phone');
+            $table->string('role');
+            $table->string('fields');
             $table->string('status');
             $table->string('system_id');
             $table->timestamps();
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kagawads');
+        Schema::dropIfExists('officials');
     }
 };
