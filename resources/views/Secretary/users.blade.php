@@ -1,4 +1,4 @@
-@extends('Admin.sidebar')
+@extends('Secretary.sidebar')
 @section('sidebar')
 <!-- Content Header (Page header) -->
 <div class="content-header">

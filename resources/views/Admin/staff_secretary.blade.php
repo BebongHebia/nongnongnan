@@ -115,6 +115,20 @@
                 let rows = '';
 
                 $.each(data, function(index, staff_sec){
+
+                    let back_color, font_color;
+
+                    if (staff_sec.status == "Active"){
+                        back_color = "green";
+                        font_color = "white";
+                    }else if (staff_sec.status == "Suspended"){
+                        back_color = "orange";
+                        font_color = "black";
+                    }else if (staff_sec.status == "Inactive"){
+                        back_color = "red";
+                        font_color = "white";
+                    }
+
                     rows += `
                         <tr>
                             <td>${staff_sec.complete_name}</td>
@@ -122,7 +136,7 @@
                             <td>${staff_sec.bday}</td>
                             <td>${staff_sec.purok}</td>
                             <td>${staff_sec.phone}</td>
-                            <td>${staff_sec.status}</td>
+                            <td><span style="background-color:${back_color}; color:${font_color}; padding:10px; border-radius:10px;">${staff_sec.status}</span></td>
                             <td>
 
                                 <a href="{{ url('/view-user=${staff_sec.id}') }}" class="btn btn-warning">
@@ -206,6 +220,7 @@
                                                     <select class="form-select select2" name="status">
                                                         <option value="${staff_sec.status}">${staff_sec.status}</option>
                                                         <option value="Active">Active</option>
+                                                        <option value="Suspended">Suspended</option>
                                                         <option value="Inactive">Inactive</option>
                                                     </select>
 

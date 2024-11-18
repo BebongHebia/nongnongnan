@@ -9,7 +9,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <h5 class="nav-link">Standard User</h5>
+            <h5 class="nav-link">Secretary</h5>
         </li>
     </ul>
 
@@ -51,7 +51,7 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" style="background-color: #3A6C7C;">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -73,7 +73,7 @@
                with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <a href="{{ url('/user-dashboard') }}" class="nav-link">
+                    <a href="{{ url('/secretary-dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -82,28 +82,74 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/user-dashboard') }}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
+                    <a href="{{ url('/secretary-staff-kapitan') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Requests
+                            Punong Barangay
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/user-dashboard') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle nav-icon"></i>
+                    <a href="{{ url('/secretary-officials') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Announcement
+                            Officials
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/user-dashboard') }}" class="nav-link">
+                    <a href="{{ url('/secretary-users') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Users
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/secretary-transactions') }}" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
-                            History
+                            Transactions
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/secretary-org-charts') }}" class="nav-link">
+                        <i class="nav-icon fas fa-tree"></i>
+                        <p>
+                            Organizational Chart
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="{{ url('/secretary-announcements') }}" class="nav-link">
+                        <i class="nav-icon fas fa-bullhorn"></i>
+                        <p>
+                            Announcements
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/secretary-kap-calendar') }}" class="nav-link">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>
+                            Kap Calendar
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/secretary-log') }}" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Logs History
                         </p>
                     </a>
                 </li>

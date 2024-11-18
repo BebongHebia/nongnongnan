@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\OfficialIdPicController;
 use App\Models\User;
 use App\Models\Kagawad;
 use App\Models\Official;
+use App\Models\CalendarAct;
 use App\Models\Transaction;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Route;
@@ -11,9 +11,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\KagawadController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\UserIdPicController;
+use App\Http\Controllers\CalendarActController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\KagawadIdPicController;
+use App\Http\Controllers\OfficialIdPicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,12 @@ Route::get('/fetch-official', function(){
     return response()->json($official);
 });
 
+Route::get('/fetch-cal-act', function(){
+    $cal_act = CalendarAct::all();
+
+    return response()->json($cal_act);
+});
+
 
 
 //Function
@@ -75,6 +83,13 @@ Route::post('/delete-official', [OfficialController::class, 'delete_official']);
 Route::post('/add-off-id', [OfficialIdPicController::class, 'add_off_id']);
 Route::post('/update-official-profile', [OfficialController::class, 'edit_official_v2']);
 
+Route::post('/add-cap-calendar', [CalendarActController::class, 'add_cal_act']);
+Route::post('/edit-cal-act', [CalendarActController::class, 'edit_cal_act']);
+Route::post('/delete-cal-act', [CalendarActController::class, 'delete_cal_act']);
+
+Route::get('/api/calendar-events', [CalendarActController::class, 'getEvents']);
+
+
 Route::get('/', function () {
     return view('login');
 });
@@ -93,7 +108,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [Usercontroller::class, 'logout']);
 
 Route::get('/user-dashboard', function(){
-    if (Auth::check() && auth()->user()->role = 'User'){
+    if (Auth::check() && auth()->user()->role == 'User'){
         return view('users.dashboard');
     }else{
         return redirect('/');
@@ -101,7 +116,7 @@ Route::get('/user-dashboard', function(){
 });
 
 Route::get('/admin-dashboard', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
         return view('admin.dashboard');
     }else{
         return redirect('/');
@@ -109,7 +124,7 @@ Route::get('/admin-dashboard', function(){
 });
 
 Route::get('/admin-users', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
         return view('admin.users');
     }else{
         return redirect('/');
@@ -117,7 +132,7 @@ Route::get('/admin-users', function(){
 });
 
 Route::get('/admin-staff-kapitan', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
         return view('admin.staff_kapitan');
     }else{
         return redirect('/');
@@ -125,7 +140,7 @@ Route::get('/admin-staff-kapitan', function(){
 });
 
 Route::get('/admin-staff-secretary', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
         return view('admin.staff_secretary');
     }else{
         return redirect('/');
@@ -133,7 +148,7 @@ Route::get('/admin-staff-secretary', function(){
 });
 
 Route::get('/admin-officials', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
         return view('admin.officials');
     }else{
         return redirect('/');
@@ -141,24 +156,34 @@ Route::get('/admin-officials', function(){
 });
 
 Route::get('/view-officials={off_id}', function($off_id){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
 
         $official_details = Official::find($off_id);
 
         return view('admin.official_profile', ['official_details' => $official_details]);
-    }else{
+    }else if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        $official_details = Official::find($off_id);
+
+        return view('Secretary.official_profile', ['official_details' => $official_details]);
+    }
+    else{
         return redirect('/');
     }
 });
 
 
 Route::get('/view-user={user_id}', function($user_id){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
 
         $user_details = User::find($user_id);
 
         return view('admin.user_profile', ['user_details' => $user_details]);
-    }else{
+    }else if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        $user_details = User::find($user_id);
+
+        return view('Secretary.user_profile', ['user_details' => $user_details]);
+    }
+    else{
         return redirect('/');
     }
 });
@@ -167,7 +192,7 @@ Route::get('/view-user={user_id}', function($user_id){
 
 
 Route::get('/admin-org-charts', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
         return view('admin.organization_chart');
     }else{
         return redirect('/');
@@ -175,7 +200,7 @@ Route::get('/admin-org-charts', function(){
 });
 
 Route::get('/admin-transactions', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
 
         $transactions = Transaction::all();
 
@@ -186,7 +211,7 @@ Route::get('/admin-transactions', function(){
 });
 
 Route::get('/admin-announcements', function(){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
 
 
         return view('admin.announcement');
@@ -195,17 +220,115 @@ Route::get('/admin-announcements', function(){
     }
 });
 
+Route::get('/admin-announcements/id={ann_id}', function($ann_id){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
+
+        $ann_details = Announcement::find($ann_id);
+        return view('admin.view_announcement', ['ann_details' => $ann_details]);
+    }elseif (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        $ann_details = Announcement::find($ann_id);
+        return view('Secretary.view_announcement', ['ann_details' => $ann_details]);
+    }
+    else{
+        return redirect('/');
+    }
+});
+
 
 Route::get('/admin-transactions/document-type={doc_type}/transaction-id={trans_id}', function($doc_type, $trans_id){
-    if (Auth::check() && auth()->user()->role = 'Admin'){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
 
         $transactions = Transaction::find($trans_id);
 
         return view('admin.view_transactions', ['transactions' => $transactions]);
+    }elseif (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        $transactions = Transaction::find($trans_id);
+
+        return view('Secretary.view_transactions', ['transactions' => $transactions]);
+    }
+    else{
+        return redirect('/');
+    }
+});
+
+Route::get('/admin-kap-calendar', function(){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
+        return view('admin.cap_calendar');
     }else{
         return redirect('/');
     }
 });
+
+Route::get('/secretary-dashboard', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.dashboard');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-staff-kapitan', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.staff_kapitan');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-officials', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.officials');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-users', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.users');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-transactions', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        $transactions = Transaction::all();
+
+        return view('Secretary.transactions', ['transactions' => $transactions]);
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-org-charts', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.organization_chart');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-announcements', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+
+
+        return view('Secretary.announcement');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-kap-calendar', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.cap_calendar');
+    }else{
+        return redirect('/');
+    }
+});
+
+
+
 
 Route::get('/print-transactions-complete/trans-id={trans_id}', function($trans_id){
     $transactions = Transaction::find($trans_id);

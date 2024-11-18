@@ -15,14 +15,23 @@ class TransactionController extends Controller
         $transaction->payable = $request->payable;
         $transaction->save();
 
-        return redirect('/admin-transactions');
+        if (auth()->user()->role == "Admin"){
+            return redirect('/admin-transactions');
+        }elseif (auth()->user()->role == "Staff-Secretary"){
+            return redirect('/secretary-transactions');
+        }
+
     }
 
     public function decline_transactions(Request $request){
         $transaction = Transaction::find($request->trans_id);
         $transaction->status = "Decline";
         $transaction->save();
-        return redirect('/admin-transactions');
+        if (auth()->user()->role == "Admin"){
+            return redirect('/admin-transactions');
+        }elseif (auth()->user()->role == "Staff-Secretary"){
+            return redirect('/secretary-transactions');
+        }
 
     }
 

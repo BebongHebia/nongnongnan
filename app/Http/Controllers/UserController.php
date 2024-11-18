@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserIdPic;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +58,8 @@ class UserController extends Controller
                 return redirect('/admin-dashboard');
             }elseif ($user_role == "User"){
                 return redirect('/user-dashboard');
-
+            }elseif ($user_role == "Staff-Secretary"){
+                return redirect('/secretary-dashboard');
             }
 
         }
@@ -102,6 +105,24 @@ class UserController extends Controller
     }
 
     public function delete_user(Request $request){
+
+        $get_user_transaction_code = Transaction::where('user_id', $request->user_id)->count();
+
+        if ($get_user_transaction_code > 0){
+            $get_user_transaction_code_list = Transaction::where('user_id', $request->user_id)->get();
+
+            foreach($get_user_transaction_code_list as $items_get_user_transaction_code_list){
+                $get_transaction = Transaction::find($items_get_user_transaction_code_list->id);
+                $get_transaction->delete();
+            }
+        }
+
+        $get_user_pics = UserIdPic::where('user_id', $request->user_id)->get();
+        foreach($get_user_pics as $items_get_user_pics){
+            $pics = UserIdPic::find($items_get_user_pics->id);
+            $pics->delete();
+        }
+
         $user = User::find($request->user_id);
         $user->delete();
         return response()->json();
@@ -116,7 +137,6 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->save();
         return redirect()->back();
-
     }
 
 

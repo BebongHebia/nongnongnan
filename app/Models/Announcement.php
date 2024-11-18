@@ -16,4 +16,8 @@ class Announcement extends Model
         'details',
     ];
 
+    public function get_added_by(){
+        return $this->belongsTo(User::class, 'added_by');
+    }
+
 }
