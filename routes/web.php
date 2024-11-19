@@ -259,6 +259,14 @@ Route::get('/admin-kap-calendar', function(){
     }
 });
 
+Route::get('/admin-log', function(){
+    if (Auth::check() && auth()->user()->role == 'Admin'){
+        return view('admin.logs');
+    }else{
+        return redirect('/');
+    }
+});
+
 Route::get('/secretary-dashboard', function(){
     if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
         return view('Secretary.dashboard');
@@ -322,6 +330,14 @@ Route::get('/secretary-announcements', function(){
 Route::get('/secretary-kap-calendar', function(){
     if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
         return view('Secretary.cap_calendar');
+    }else{
+        return redirect('/');
+    }
+});
+
+Route::get('/secretary-log', function(){
+    if (Auth::check() && auth()->user()->role == 'Staff-Secretary'){
+        return view('Secretary.logs');
     }else{
         return redirect('/');
     }

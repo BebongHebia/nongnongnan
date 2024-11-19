@@ -164,8 +164,9 @@
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     <button type="button" onclick="edit_ann(event, ${announcement.id})" class="btn btn-primary">
                                                         <i class="fas fa-save">
-                                                            Save changes
+
                                                         </i>
+                                                        Save changes
                                                     </button>
                                                 </div>
                                             </div>

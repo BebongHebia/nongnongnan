@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use App\Models\CalendarAct;
 use Illuminate\Http\Request;
 
@@ -9,10 +10,20 @@ class CalendarActController extends Controller
 {
 
     public function add_cal_act(Request $request){
-        CalendarAct::create([
+        $calendar = CalendarAct::create([
             'activity' => $request->activity,
             'date' => $request->date,
             'status' => 'Pending',
+        ]);
+
+
+        HistoryLog::create([
+            'user_id' => auth()->user()->id,
+            'role' => auth()->user()->role,
+            'transaction_code' => 0,
+            'transaction_id' => 0,
+            'remarks' => 'Activity Added ' . $calendar->activity,
+            'date' => date("Y-m-d"),
         ]);
 
         return response()->json();
@@ -21,6 +32,17 @@ class CalendarActController extends Controller
     public function edit_cal_act(Request $request){
 
         $cal_act = CalendarAct::find($request->cal_cat_id);
+
+        HistoryLog::create([
+            'user_id' => auth()->user()->id,
+            'role' => auth()->user()->role,
+            'transaction_code' => 0,
+            'transaction_id' => 0,
+            'remarks' => 'Edited Calendary Activity' . $cal_act->activity . " From : " . $cal_act->activity . " To : " . $request->activity . " From : " . $cal_act->date . " To : " . $request->date . " From : " . $cal_act->status . " To : " . $request->status ,
+            'date' => date("Y-m-d"),
+        ]);
+
+
         $cal_act->activity = $request->activity;
         $cal_act->date = $request->date;
         $cal_act->status = $request->status;
@@ -30,6 +52,16 @@ class CalendarActController extends Controller
 
     public function delete_cal_act(Request $request){
         $cal_act = CalendarAct::find($request->cal_cat_id);
+
+        HistoryLog::create([
+            'user_id' => auth()->user()->id,
+            'role' => auth()->user()->role,
+            'transaction_code' => 0,
+            'transaction_id' => 0,
+            'remarks' => 'Deleted Calendary Activity' . $cal_act->activity,
+            'date' => date("Y-m-d"),
+        ]);
+
         $cal_act->delete();
         return response()->json();
     }
