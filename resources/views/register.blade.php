@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nongnongan Daily Transaction System</title>
+    <title>Barangay Old Nongnongan Daily Transaction System</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -15,17 +15,17 @@
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body class="hold-transition register-page">
+<body class="hold-transition register-page" style="background-color: #3A6C7C;">
     <div class="register-box">
-        <div class="card card-outline card-primary">
+        <div class="card card-outline card-primary" style="background-color: #3A6C7C; border: 1px solid #ffffff;">
             <div class="card-header text-center">
                 <center>
                     <img src="{{ asset('images/logo.png') }}" class="img-fluid img-circle">
                 </center>
-                <a href="{{ url('/') }}" class="h5"><b>Barangay Nongnongnan Daily Transaction System</b></a>
+                <a href="{{ url('/') }}" class="h5" style="color: white;"><b> Barangay Old Nongnongnan Daily Transaction System</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg" style="color: white;"> Register a new membership </p>
 
                 <form action="{{ url('/register') }}" method="post">
                     @csrf
@@ -53,7 +53,7 @@
                             <option value="Female">Female</option>
                         </select>
                     </div>
-                    <label>Date of Birth</label>
+                    <label style="color: white;">Date of Birth</label>
                     <div class="input-group mb-3">
 
                         <input type="date" class="form-control" placeholder="Date of Birth" name="bday">
@@ -99,7 +99,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button class="btn btn-block btn-primary">
+                            <button class="btn btn-block btn-success">
                                 Create Account
                             </button>
                         </div>

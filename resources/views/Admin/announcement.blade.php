@@ -26,9 +26,11 @@
                     <input type="text" name="title" class="form-control">
                     <label>Details</label>
                     <textarea name="details" class="form-control"></textarea>
-                    <button class="btn btn-success mt-2" onclick="add_announcement(event)">
-                        <i class="fas fa-plus"></i> Add Announcement
-                    </button>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <button class="btn btn-success mt-2" onclick="add_announcement(event)">
+                            <i class="fas fa-plus"></i> Add Announcement
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -17,8 +17,8 @@
 <body class="hold-transition login-page" style="background-color: #3A6C7C;">
 <div class="login-box">
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary" style="background-color: #3A6C7C; border-color: #ffffff;">
-    <div class="card-header text-center">
+  <div class="card card-outline card-primary" style="background-color: #3A6C7C; border: 1px solid #ffffff;">
+    <div class="card-header text-center" style="border-bottom: 2px solid white;">
         <center>
             <img src="{{ asset('images/logo.png') }}" class="img-fluid img-circle">
         </center>
