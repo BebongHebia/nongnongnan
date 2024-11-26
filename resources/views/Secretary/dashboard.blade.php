@@ -1,4 +1,4 @@
-@extends('Admin.sidebar')
+@extends('Secretary.sidebar')
 @section('sidebar')
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -12,7 +12,6 @@
 </div>
 <!-- /.content-header -->
 
-<!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">

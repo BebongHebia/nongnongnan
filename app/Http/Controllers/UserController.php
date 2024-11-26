@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserIdPic;
+use App\Models\HistoryLog;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +31,14 @@ class UserController extends Controller
 
             Auth::login($user);
 
+            HistoryLog::create([
+                'user_id' => 0,
+                'role' => 0,
+                'transaction_code' => 0,
+                'transaction_id' => 0,
+                'remarks' => "New Account Registered " . $user->complete_name,
+                'date' => date("Y-m-d"),
+            ]);
 
             Alert::success('Success', 'Registration Completed');
 
@@ -56,23 +67,44 @@ class UserController extends Controller
                 return redirect('/admin-dashboard');
             }elseif ($user_role == "User"){
                 return redirect('/user-dashboard');
-
+            }elseif ($user_role == "Staff-Secretary"){
+                return redirect('/secretary-dashboard');
             }
+
+            HistoryLog::create([
+                'user_id' => auth()->user()->id,
+                'role' => 0,
+                'transaction_code' => 0,
+                'transaction_id' => 0,
+                'remarks' => "Accoun Logged In " . auth()->user()->complete_name,
+                'date' => date("Y-m-d h:i:sa"),
+            ]);
 
         }
     }
 
     public function logout(){
-        Auth::logout();
 
+
+        HistoryLog::create([
+            'user_id' => auth()->user()->id,
+            'role' => 0,
+            'transaction_code' => 0,
+            'transaction_id' => 0,
+            'remarks' => "Accoun Logged Out " . auth()->user()->complete_name,
+            'date' => date("Y-m-d:h:i:sa"),
+        ]);
+        Auth::logout();
         return redirect('/');
+
+
     }
 
     public function add_user(Request $request){
 
         $get_latest_user_id = User::latest()->first();
 
-        User::create([
+        $user = User::create([
             'complete_name' => $request->complete_name,
             'purok' => $request->purok,
             'sex' => $request->sex,
@@ -85,11 +117,25 @@ class UserController extends Controller
             'user_password' => date("Ymd") . $get_latest_user_id->id,
         ]);
 
+        HistoryLog::create([
+            'user_id' => auth()->user()->id,
+            'role' => auth()->user()->id,
+            'transaction_code' => 0,
+            'transaction_id' => 0,
+            'remarks' => "Adding User " . $user->complete_name . " Role : " . $request->role,
+            'date' => date("Y-m-d:h:i:s"),
+        ]);
+
         return response()->json();
     }
 
     public function edit_user(Request $request){
+
+
+
         $user = User::find($request->user_id);
+        // Store original values
+        $original = $user->getOriginal();
         $user->complete_name = $request->complete_name;
         $user->purok = $request->purok;
         $user->sex = $request->sex;
@@ -97,12 +143,63 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->status = $request->status;
         $user->save();
+
+        // Determine changes
+        $changes = [];
+        foreach ($user->getChanges() as $field => $newValue) {
+            $oldValue = $original[$field];
+            if ($oldValue !== $newValue) {
+                $changes[] = ucfirst($field) . " changed from '$oldValue' to '$newValue'";
+            }
+        }
+
+        // Create a concise remarks string
+            $remarks = "User edited: " . implode("; ", $changes);
+
+            // Log the history
+            HistoryLog::create([
+                'user_id' => auth()->user()->id,
+                'role' => auth()->user()->role,
+                'transaction_code' => 0,
+                'transaction_id' => 0,
+                'remarks' => $remarks,
+                'date' => date("Y-m-d"),
+            ]);
+
         return response()->json();
 
     }
 
     public function delete_user(Request $request){
+
+        $get_user_transaction_code = Transaction::where('user_id', $request->user_id)->count();
+
+        if ($get_user_transaction_code > 0){
+            $get_user_transaction_code_list = Transaction::where('user_id', $request->user_id)->get();
+
+            foreach($get_user_transaction_code_list as $items_get_user_transaction_code_list){
+                $get_transaction = Transaction::find($items_get_user_transaction_code_list->id);
+                $get_transaction->delete();
+            }
+        }
+
+        $get_user_pics = UserIdPic::where('user_id', $request->user_id)->get();
+        foreach($get_user_pics as $items_get_user_pics){
+            $pics = UserIdPic::find($items_get_user_pics->id);
+            $pics->delete();
+        }
+
         $user = User::find($request->user_id);
+
+        HistoryLog::create([
+            'user_id' => auth()->user()->id,
+            'role' => auth()->user()->role,
+            'transaction_code' => 0,
+            'transaction_id' => 0,
+            'remarks' => "Delete User : " . $user->complete_name,
+            'date' => date("Y-m-d"),
+        ]);
+
         $user->delete();
         return response()->json();
     }
@@ -116,7 +213,6 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->save();
         return redirect()->back();
-
     }
 
 

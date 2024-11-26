@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Staff Kapitan</h1>
+                <h1 class="m-0">Punong Barangay</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -77,7 +77,7 @@
             <div class="col-sm-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <p class="card-text">List of Kapitan</p>
+                        <p class="card-text">List of Punong Barangay</p>
                     </div>
                     <div class="card-body">
                         <table class="table table-hover table-striped table-bordered" id="data_table">
@@ -115,6 +115,20 @@
                 let rows = '';
 
                 $.each(data, function(index, staff_kap){
+
+                    let color, font_color;
+
+                    if (staff_kap.status == "Active"){
+                        color = "green";
+                        font_color = "white";
+                    }else if (staff_kap.status == "Suspended"){
+                        color = "orange";
+                        font_color = "black";
+                    }else if (staff_kap.status == "Inactive"){
+                        color = "red";
+                        font_color = "white";
+                    }
+
                     rows += `
                         <tr>
                             <td>${staff_kap.complete_name}</td>
@@ -122,7 +136,7 @@
                             <td>${staff_kap.bday}</td>
                             <td>${staff_kap.purok}</td>
                             <td>${staff_kap.phone}</td>
-                            <td>${staff_kap.status}</td>
+                            <td><span style="background-color:${color}; color:${font_color}; padding:10px; border-radius:10px;">${staff_kap.status}</span></td>
                             <td>
                                 <a href="{{ url('/view-user=${staff_kap.id}') }}" class="btn btn-warning">
                                     <i class="fas fa-eye"></i>
@@ -205,6 +219,7 @@
                                                     <select class="form-select select2" name="status">
                                                         <option value="${staff_kap.status}">${staff_kap.status}</option>
                                                         <option value="Active">Active</option>
+                                                        <option value="Suspended">Suspended</option>
                                                         <option value="Inactive">Inactive</option>
                                                     </select>
 

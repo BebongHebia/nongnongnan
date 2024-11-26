@@ -1,4 +1,4 @@
-@extends('Admin.sidebar')
+@extends('Secretary.sidebar')
 @section('sidebar')
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -26,11 +26,9 @@
                     <input type="text" name="title" class="form-control">
                     <label>Details</label>
                     <textarea name="details" class="form-control"></textarea>
-                    <div style="display: flex; justify-content: center; align-items: center;">
-                        <button class="btn btn-success mt-2" onclick="add_announcement(event)">
-                            <i class="fas fa-plus"></i> Add Announcement
-                        </button>
-                    </div>
+                    <button class="btn btn-success mt-2" onclick="add_announcement(event)">
+                        <i class="fas fa-plus"></i> Add Announcement
+                    </button>
                 </form>
             </div>
         </div>
@@ -166,9 +164,8 @@
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     <button type="button" onclick="edit_ann(event, ${announcement.id})" class="btn btn-primary">
                                                         <i class="fas fa-save">
-
+                                                            Save changes
                                                         </i>
-                                                        Save changes
                                                     </button>
                                                 </div>
                                             </div>

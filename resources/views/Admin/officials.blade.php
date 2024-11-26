@@ -120,16 +120,21 @@
 
                 $.each(data, function (index, official) {
 
-                    var back_color;
+                    var back_color, font_color;
 
                     if (official.status == "Active"){
-                        back_color = "table-success";
-                    }else{
-                        back_color = "table-danger";
+                        back_color = "green";
+                        font_color = "white";
+                    }else if (official.status == "Suspended"){
+                        back_color = "orange";
+                        font_color = "black";
+                    }else if (official.status == "Inactive"){
+                        back_color = "red";
+                        font_color = "white";
                     }
 
                     rows += `
-                        <tr class="${back_color}">
+                        <tr>
                             <td>${official.complete_name}</td>
                             <td>${official.sex}</td>
                             <td>${official.bday}</td>
@@ -137,7 +142,7 @@
                             <td>${official.phone}</td>
                             <td>${official.role}</td>
                             <td>${official.fields}</td>
-                            <td>${official.status}</td>
+                            <td><span style="background-color:${back_color}; color:${font_color}; padding:10px; border-radius:10px;">${official.status}</span></td>
                             <td>
 
                                 <a href="{{ url('/view-officials=${official.id}') }}" class="btn btn-warning">
@@ -230,6 +235,7 @@
                                                     <select class="form-select select2" name="status">
                                                         <option value="${official.status}">${official.status} Current</option>
                                                         <option value="Active">Active</option>
+                                                        <option value="Suspended">Suspended</option>
                                                         <option value="Inactive">Inactive</option>
                                                     </select>
                                                 </form>
