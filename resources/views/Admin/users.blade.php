@@ -49,6 +49,7 @@
                                     <label>Date of birth</label>
                                     <input type="date" name="bday" class="form-control">
 
+<<<<<<< HEAD
                                     <label>Place of Birth</label>
                                     <input type="text" name="place_of_birth" class="form-control" placeholder="Enter Place of Birth">
 
@@ -109,6 +110,8 @@
                                     <input type="text" name="profession" class="form-control" placeholder="Enter Place of Birth">
 
 
+=======
+>>>>>>> f0c7b5a963e3b3eaea6bb2bfa9ce95d93b2406b0
                                     <label>Purok - Address</label>
                                     <input type="text" name="purok" class="form-control" placeholder="Enter Purok">
 

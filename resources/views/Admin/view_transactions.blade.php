@@ -1096,6 +1096,7 @@
 </section>
 <!-- /.content -->
 
+<<<<<<< HEAD
 <script>
 
     display_persones();
@@ -1208,4 +1209,6 @@
     }
 </script>
 
+=======
+>>>>>>> f0c7b5a963e3b3eaea6bb2bfa9ce95d93b2406b0
 @endsection
