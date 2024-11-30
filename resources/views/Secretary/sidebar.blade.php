@@ -47,7 +47,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
         <img src="{{ asset('images/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">BNDRS</span>
+        <span class="brand-text font-weight-light">OBMSDT</span>
     </a>
 
     <!-- Sidebar -->
@@ -140,19 +140,11 @@
                     <a href="{{ url('/secretary-kap-calendar') }}" class="nav-link">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
-                            Kap Calendar
+                         Calendar
                         </p>
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ url('/secretary-log') }}" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>
-                            Logs History
-                        </p>
-                    </a>
-                </li>
 
             </ul>
         </nav>

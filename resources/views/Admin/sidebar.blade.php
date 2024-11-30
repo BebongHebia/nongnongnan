@@ -149,7 +149,7 @@
                     <a href="{{ url('/admin-kap-calendar') }}" class="nav-link">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
-                            Kap Calendar
+                        Calendar
                         </p>
                     </a>
                 </li>
