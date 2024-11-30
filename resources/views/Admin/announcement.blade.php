@@ -1,5 +1,20 @@
 @extends('Admin.sidebar')
 @section('sidebar')
+
+<head>
+    <style scoped>
+        .mySlides {
+            display: none;
+            transition: .5s
+        }
+
+        @keyframes fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+      </style>
+</head>
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -15,6 +30,8 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+
+
 
         <div class="row">
             <div class="col-sm-12">
@@ -42,12 +59,6 @@
             <div class="card-body pb-0">
                 <div class="row" id="announcement_body">
 
-
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -61,6 +72,9 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
+
+
 
 <script>
     display_announcemnt();
