@@ -18,13 +18,13 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#add_user_modal">
+                <button class="btn btn-success" data-toggle="modal" data-target="#add_user_modal">
                     <i class="fas fa-plus"></i> Add User
                 </button>
 
                 <div class="modal fade" id="add_user_modal">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content" style="background-color: #dfe8eb;">
                             <div class="modal-header">
                                 <h4 class="modal-title">Add User</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

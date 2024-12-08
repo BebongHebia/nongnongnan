@@ -31,7 +31,7 @@
                     <div class="icon">
                         <i class="ion ion-person"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <!-- a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></!-->
                 </div>
             </div>
             <!-- ./col -->
@@ -52,7 +52,7 @@
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <!-- a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></!-->
                 </div>
             </div>
             <!-- ./col -->
@@ -74,7 +74,7 @@
                     <div class="icon">
                         <i class="ion ion-person"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <!-- a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></!-->
                 </div>
             </div>
             <!-- ./col -->
@@ -89,7 +89,7 @@
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <!-- a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></!-->
                 </div>
             </div>
             <!-- ./col -->
@@ -97,15 +97,10 @@
         <!-- /.row -->
 
 
-<<<<<<< HEAD
 
 
         <div class="row">
             <div class="col-sm-9">
-=======
-        <div class="row">
-            <div class="col-sm-12">
->>>>>>> f0c7b5a963e3b3eaea6bb2bfa9ce95d93b2406b0
                 <div class="card card-primary">
                     <div class="card-header">
                         <p class="card-text">
@@ -139,7 +134,6 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             <div class="col-sm-3">
 
                 <div class="row">
@@ -179,8 +173,6 @@
 
 
             </div>
-=======
->>>>>>> f0c7b5a963e3b3eaea6bb2bfa9ce95d93b2406b0
         </div>
 
         <div class="row">
@@ -206,7 +198,6 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-<<<<<<< HEAD
 <script>
     var myIndex = 0;
     carousel();
@@ -231,8 +222,6 @@
         setTimeout(carousel, 2000); // Change image every 2 seconds
     }
   </script>
-=======
->>>>>>> f0c7b5a963e3b3eaea6bb2bfa9ce95d93b2406b0
 
 <script>
 

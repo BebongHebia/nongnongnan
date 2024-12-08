@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Punong Barangay</h1>
+                <h1 class="m-0">Kapitan</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -18,20 +18,20 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#add_staff_kap_modal">
+                <button class="btn btn-success" data-toggle="modal" data-target="#add_staff_kap_modal">
                     <i class="fas fa-plus"></i> Add Staff Kapitan
                 </button>
 
                 <div class="modal fade" id="add_staff_kap_modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" style="background-color: #dfe8eb;">
                                 <h4 class="modal-title">Add Kapitan</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" style="background-color: #dfe8eb;">
                                 <form id="add_staff_kap_form">
                                     @csrf
 
@@ -120,7 +120,7 @@
 
                                 </form>
                             </div>
-                            <div class="modal-footer justify-content-between">
+                            <div class="modal-footer justify-content-between" style="background-color: #dfe8eb;">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="button" onclick="add_kap(event)" class="btn btn-primary">Submit</button>
                             </div>

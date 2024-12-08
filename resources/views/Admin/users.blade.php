@@ -18,20 +18,20 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#add_user_modal">
+                <button class="btn btn-success" data-toggle="modal" data-target="#add_user_modal">
                     <i class="fas fa-plus"></i> Add User
                 </button>
 
-                <div class="modal fade" id="add_user_modal">
+                <div class="modal fade" id="add_user_modal" >
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" style="background-color: #dfe8eb;">
                                 <h4 class="modal-title">Add User</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body"  style="background-color: #dfe8eb;">
                                 <form id="add_user_form">
                                     @csrf
 
@@ -49,7 +49,6 @@
                                     <label>Date of birth</label>
                                     <input type="date" name="bday" class="form-control">
 
-<<<<<<< HEAD
                                     <label>Place of Birth</label>
                                     <input type="text" name="place_of_birth" class="form-control" placeholder="Enter Place of Birth">
 
@@ -110,8 +109,6 @@
                                     <input type="text" name="profession" class="form-control" placeholder="Enter Place of Birth">
 
 
-=======
->>>>>>> f0c7b5a963e3b3eaea6bb2bfa9ce95d93b2406b0
                                     <label>Purok - Address</label>
                                     <input type="text" name="purok" class="form-control" placeholder="Enter Purok">
 
@@ -120,7 +117,7 @@
 
                                 </form>
                             </div>
-                            <div class="modal-footer justify-content-between">
+                            <div class="modal-footer justify-content-between" style="background-color: #dfe8eb;">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="button" onclick="add_user(event)" class="btn btn-primary">Submit</button>
                             </div>
