@@ -26,6 +26,8 @@ class Transaction extends Model
         'ref_no',
         'remarks',
         'schedule',
+        'contact',
+        'sms_status',
     ];
 
     public function get_user(){

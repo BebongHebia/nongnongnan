@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('ref_no');
             $table->string('remarks');
             $table->string('schedule');
+            $table->string('contact');
+            $table->string('sms_status');
             $table->timestamps();
         });
     }
