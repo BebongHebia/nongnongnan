@@ -362,3 +362,8 @@ Route::get('/print-transactions-complete/trans-id={trans_id}', function($trans_i
     $transactions = Transaction::find($trans_id);
     return view('print', ['transactions' => $transactions]);
 });
+
+
+Route::get('/landing', function(){
+    return view('landing.index');
+});

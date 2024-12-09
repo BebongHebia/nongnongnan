@@ -26,7 +26,7 @@
                     </div>
                     <div class="card-body">
 
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#add_calendar_act_modal">
+                        <button class="btn btn-success    " data-toggle="modal" data-target="#add_calendar_act_modal">
                             <i class="fas fa-plus"></i> Add Calendar
                         </button>
 

@@ -2,28 +2,28 @@
 @section('master_layout')
 
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar- navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="color: white;"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <h5 class="nav-link">Super Admin</h5>
+            <h5 class="nav-link" style="color: white;">Super Admin</h5>
         </li>
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" style="color: white;">
 
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-user"></i>
+        <li class="nav-item dropdown" >
+            <a class="nav-link" data-toggle="dropdown" href="#" style="color: white;">
+                <i class="fa fa-power-off"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider" ></div>
                 <form action="{{ url('/logout') }}" method="POST">
                     @csrf
                     <button class="btn btn-danger btn-block">
@@ -34,7 +34,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" style="color: white;">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
@@ -149,7 +149,7 @@
                     <a href="{{ url('/admin-kap-calendar') }}" class="nav-link">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
-                            Kap Calendar
+                        Calendar
                         </p>
                     </a>
                 </li>

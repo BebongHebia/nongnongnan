@@ -5,8 +5,8 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
+        <div class="row mb-2 justify-content-center">
+            <div class="col-sm-6 text-center">
                 <h1 class="m-0">Organizational Chart</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
