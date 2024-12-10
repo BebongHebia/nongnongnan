@@ -99,7 +99,7 @@ Route::post('/add-involve', [IncidentReportInvolveController::class, 'add_person
 Route::post('/remove-involve', [IncidentReportInvolveController::class, 'remove_personel']);
 
 Route::get('/', function () {
-    return view('login');
+    return view('landing.index');
 });
 
 Route::get('/create-account', function(){
@@ -365,5 +365,13 @@ Route::get('/print-transactions-complete/trans-id={trans_id}', function($trans_i
 
 
 Route::get('/landing', function(){
+    return view('landing.index');
+});
+
+Route::get('/login-page', function () {
+    return view('login');
+});
+
+Route::get('/index.html', function () {
     return view('landing.index');
 });

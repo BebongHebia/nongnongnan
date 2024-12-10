@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head>
 <body class="hold-transition login-page" style="background-color: #3A6C7C;">
+
 <div class="login-box">
+    
     <!-- Login Card -->
     <div class="card card-outline card-primary" style="background-color: #3A6C7C; border-color: #ffffff;">
         <div class="card-header text-center">
@@ -25,6 +27,7 @@
             <a href="{{ url('/') }}" class="h5" style="color: white;">
                 <b>Barangay Old Nongnongnan Daily Transaction System</b>
             </a>
+            
         </div>
         <div class="card-body">
             <p class="login-box-msg" style="color: white;">Sign in to start your session</p>
@@ -67,6 +70,8 @@
                     <a href="{{ url('/forgot-password') }}" class="text-white">Forgot Password?</a>
                 </div>
             </div>
+
+
         </div>
         <!-- /.card-body -->
     </div>
