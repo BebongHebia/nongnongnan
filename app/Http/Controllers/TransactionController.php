@@ -24,6 +24,7 @@ class TransactionController extends Controller
         $transaction->remarks = "-" . $request->remarks;
         $transaction->schedule = $request->schedule;
         $transaction->payable = $request->payable;
+        $transaction->sms_status = "Pending";
         $transaction->save();
 
         if (auth()->user()->role == "Admin"){
@@ -48,6 +49,7 @@ class TransactionController extends Controller
 
         $transaction->status = "Decline";
         $transaction->remarks = $request->remarks;
+        $transaction->sms_status = "Pending";
         $transaction->save();
         if (auth()->user()->role == "Admin"){
             return redirect('/admin-transactions');
@@ -73,6 +75,7 @@ class TransactionController extends Controller
         $transaction->status = "Completed";
         $transaction->or_no = $request->or_no;
         $transaction->validity = $request->validity;
+        $transaction->sms_status = "Pending";
         $transaction->save();
         return redirect('/print-transactions-complete/trans-id=' . $request->trans_id);
     }

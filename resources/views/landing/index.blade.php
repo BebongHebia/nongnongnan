@@ -11,11 +11,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('landing_assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    
+
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="{{ asset('landing_assets/assets/css/fontawesome.css') }}">
     <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
@@ -83,7 +83,7 @@ https://templatemo.com/tm-591-villa-agency
                       <li><a href="property-details.html">Property Details</a></li>
                       <li><a href="contact.html">Contact Us</a></li>
                       <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
-                  </ul>   
+                  </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
@@ -277,7 +277,7 @@ https://templatemo.com/tm-591-villa-agency
                     <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse" type="button" role="tab" aria-controls="penthouse" aria-selected="false">Penthouse</button>
                   </li>
                 </ul>
-              </div>              
+              </div>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="appartment" role="tabpanel" aria-labelledby="appartment-tab">
                   <div class="row">
@@ -297,7 +297,7 @@ https://templatemo.com/tm-591-villa-agency
                     </div>
                     <div class="col-lg-3">
                       <h4>Extra Info About Property</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. 
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse.
                       <br><br>When you need free CSS templates, you can simply type TemplateMo in any search engine website. In addition, you can type TemplateMo Portfolio, TemplateMo One Page Layouts, etc.</p>
                       <div class="icon-button">
                         <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
@@ -563,8 +563,8 @@ https://templatemo.com/tm-591-villa-agency
   <footer>
     <div class="container">
       <div class="col-lg-8">
-        <p>Copyright © 2048 Villa Agency Co., Ltd. All rights reserved. 
-        
+        <p>Copyright © 2048 Villa Agency Co., Ltd. All rights reserved.
+
         Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
       </div>
     </div>

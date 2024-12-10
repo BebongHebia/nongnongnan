@@ -26,6 +26,7 @@ class Transaction extends Model
         'ref_no',
         'remarks',
         'schedule',
+        'payable',
         'contact',
         'sms_status',
     ];
