@@ -114,6 +114,156 @@
 
         </div>
 
+        <div class="row">
+            <div class="col-sm-10">
+            </div>
+            <div class="col-sm-2">
+                @if($user_details->status == "Pending" || $user_details->status == "Inactive")
+                    <button class="btn btn-success" data-toggle="modal" data-target="#activate_user_modal">
+                        <i class="fas fa-plus"></i> Activate User
+                    </button>
+
+                    <div class="modal fade" id="activate_user_modal" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #dfe8eb;">
+                                    <h4 class="modal-title">Confirming User Activation</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"  style="background-color: #dfe8eb;">
+                                    <form action="{{ url('/user-status') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ $user_details->id }}">
+                                        <input type="hidden" name="status" value="Active">
+                                        <h5 class="text-center">Confirming Account Activation</h5>
+
+
+                                </div>
+                                <div class="modal-footer justify-content-between" style="background-color: #dfe8eb;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button  class="btn btn-primary">Activate</button>
+                                </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+                @elseif ($user_details->status == "Active")
+
+                    <button class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#deactivate_user_modal">
+                        <i class="fas fa-close"></i> Deactivate User
+                    </button>
+
+                    <button class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="#block_user">
+                        <i class="fas fa-close"></i> Block User
+                    </button>
+
+                    <div class="modal fade" id="block_user" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #dfe8eb;">
+                                    <h4 class="modal-title">Confirming User Blocked</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"  style="background-color: #dfe8eb;">
+                                    <form action="{{ url('/user-status') }}" method="POST">
+                                        @csrf
+
+                                        <input type="hidden" name="user_id" value="{{ $user_details->id }}">
+                                        <input type="hidden" name="status" value="Blocked">
+                                        <h5 class="text-center">Confirming Account Blocking</h5>
+
+                                </div>
+                                <div class="modal-footer justify-content-between" style="background-color: #dfe8eb;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-danger">Block</button>
+                                </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+                    <div class="modal fade" id="deactivate_user_modal" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #dfe8eb;">
+                                    <h4 class="modal-title">Confirming User Deactivation</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"  style="background-color: #dfe8eb;">
+                                    <form action="{{ url('/user-status') }}" method="POST">
+                                        @csrf
+
+                                        <input type="hidden" name="user_id" value="{{ $user_details->id }}">
+                                        <input type="hidden" name="status" value="Inactive">
+                                        <h5 class="text-center">Are you sure you want to confirm account deactivation?</h5>
+
+                                </div>
+                                <div class="modal-footer justify-content-between" style="background-color: #dfe8eb;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-danger">Deactivate</button>
+                                </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+
+                    @elseif ($user_details->status == "Blocked")
+                    <button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#activate_user_modal">
+                        <i class="fas fa-check"></i> Open User
+                    </button>
+
+                    <div class="modal fade" id="activate_user_modal" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #dfe8eb;">
+                                    <h4 class="modal-title">Confirming to Open User</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"  style="background-color: #dfe8eb;">
+                                    <form action="{{ url('/user-status') }}" method="POST">
+                                        @csrf
+
+                                    <input type="hidden" name="user_id" value="{{ $user_details->id }}">
+                                        <input type="hidden" name="status" value="Active">
+                                        <h5 class="text-center">Are you sure you want to confirm account activation?</h5>
+
+                                </div>
+                                <div class="modal-footer justify-content-between" style="background-color: #dfe8eb;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary">Deactivate</button>
+                                </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+
+
+                @endif
+            </div>
+        </div>
+
 
     </div><!-- /.container-fluid -->
 </section>

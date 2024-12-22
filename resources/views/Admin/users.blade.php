@@ -176,11 +176,19 @@
 
                     let color, font_color;
 
+
+
                     if (users.status == "Active"){
                         color = "green";
                         font_color = "white";
                     }else if (users.status == "Inactive"){
                         color = "red";
+                        font_color = "white";
+                    }else if (users.status == "Pending"){
+                        color = "orange";
+                        font_color = "black";
+                    }else if (users.status == "Blocked"){
+                        color = "black";
                         font_color = "white";
                     }
 
@@ -206,6 +214,8 @@
                                 <button class="btn btn-danger" data-toggle="modal" data-target="#delete_user_modal${users.id}">
                                     <i class="fas fa-trash"></i>
                                 </button>
+
+
 
                                 <div class="modal fade" id="delete_user_modal${users.id}">
                                     <div class="modal-dialog">
@@ -340,6 +350,7 @@
                                                         <option value="${users.status}">${users.status}</option>
                                                         <option value="Active">Active</option>
                                                         <option value="Inactive">Inactive</option>
+                                                        <option value="Blocked">Blocked</option>
                                                     </select>
 
                                                 </form>

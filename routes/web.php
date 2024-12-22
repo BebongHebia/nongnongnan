@@ -98,6 +98,8 @@ Route::get('/api/calendar-events', [CalendarActController::class, 'getEvents']);
 Route::post('/add-involve', [IncidentReportInvolveController::class, 'add_personel']);
 Route::post('/remove-involve', [IncidentReportInvolveController::class, 'remove_personel']);
 
+Route::post('/user-status', [UserController::class, 'edit_user_status']);
+
 Route::get('/', function () {
     return view('landing.index');
 });

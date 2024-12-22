@@ -262,6 +262,22 @@ class UserController extends Controller
         }
     }
 
+    public function edit_user_status(Request $request){
+        $get_user = User::find($request->user_id);
+        $get_user->status = $request->status;
+        $get_user->save();
+
+        Alert::success('Status change');
+
+        if (auth()->user()->role == "Admin"){
+            return redirect('/admin-users');
+        }elseif (auth()->user()->role == "Staff-Secretary"){
+            return redirect('/secretary-users');
+        }
+
+
+    }
+
 
 
 }
